@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Solana Tools - 金狗侦探</title>
+    <style>
+        :root {
+            --primary: #7C3AED;
+            --dark: #1A1A1A;
+            --light: #F8FAFC;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', 'Helvetica Neue', sans-serif;
+        }
+
+        /* 页面容器 */
+        .page-container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* 导航栏 */
+        .navbar {
+            padding: 1rem 5%;
+            background: var(--dark);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .nav-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid rgba(255,255,255,0.1);
+        }
+
+        .nav-logo {
+            color: white !important;
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: none !important;
+            -webkit-text-fill-color: initial !important;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 2rem;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+
+        .nav-links a.active {
+            background: linear-gradient(135deg, var(--primary), #4F46E5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* 主内容区 */
+        .main-content {
+            flex: 1;
+            position: relative;
+            z-index: 1;
+            transition: opacity 0.3s ease;
+        }
+
+        .main-content.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* 核心功能标题 */
+        .core-features {
+            padding: 0 5%;
+            margin: 2rem 0;
+        }
+
+        .core-title {
+            text-align: center;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 2rem;
+        }
+
+        /* 更新日志 */
+        .changelog-content {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            min-height: 100vh;
+            padding: calc(72px + 2rem) 5% 2rem;
+            background: var(--light);
+            z-index: 2;
+        }
+
+        .changelog-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .update-list {
+            max-width: 1000px;
+            margin: 0 auto;
+            list-style: none;
+            padding: 2rem 0;
+        }
+
+        .update-item {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .update-item:hover {
+            transform: translateY(-3px);
+        }
+
+        .update-version {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .update-date {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .update-details p {
+            margin: 0.5rem 0;
+            color: #444;
+            padding-left: 1.2rem;
+        }
+
+        .update-details p::before {
+            content: "•";
+            color: var(--primary);
+            margin-right: 0.5rem;
+        }
+
+        .back-btn {
+            background: linear-gradient(135deg, var(--primary), #4F46E5);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            border: none;
+            cursor: pointer;
+            position: fixed;
+            top: 1.2rem;
+            left: 5%;
+            z-index: 101;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            transition: transform 0.2s ease;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-1px);
+        }
+
+        /* 下载按钮 */
+        .download-btn {
+            background: linear-gradient(135deg, var(--primary), #4F46E5);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            margin: 2rem auto 0;
+            display: block;
+            width: fit-content;
+            transition: transform 0.2s ease;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-1px);
+        }
+
+        /* 内容区块 */
+        .hero {
+            background: linear-gradient(45deg, var(--dark), #2D3748);
+            padding: 6rem 5% 4rem;
+            color: white;
+            text-align: center;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 2rem 0;
+        }
+
+        .feature-card {
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            background: white;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        /* 页脚 */
+        footer {
+            margin-top: auto;
+            background: var(--dark);
+            color: white;
+            padding: 2rem 5%;
+            text-align: center;
+            position: relative;
+            z-index: 3;
+            transition: all 0.3s ease;
+        }
+
+        footer.hidden {
+            display: none;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* 微信弹窗 */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            justify-content: center;
+            align-items: center;
+            z-index: 200;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            position: relative;
+            animation: modalSlide 0.3s ease;
+        }
+
+        .qrcode-img {
+            width: 250px;
+            height: 250px;
+            margin: 1rem 0;
+            border: 1px solid #ddd;
+            padding: 10px;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: var(--dark);
+            transform: translateX(-5px);
+        }
+
+        @keyframes modalSlide {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        <nav class="navbar">
+            <div class="nav-brand">
+                <img src="avatar.jpg" alt="用户头像" class="nav-avatar">
+                <div class="nav-logo">Solana Tools - 金狗侦探</div>
+            </div>
+            <div class="nav-links">
+                <a id="changelog-link" href="javascript:void(0);">更新日志</a>
+                <a id="wechat-link">联系我们</a>
+                <a href="https://t.me/jingouzhentan" target="_blank">工具社区</a>
+            </div>
+        </nav>
+
+        <!-- 更新日志 -->
+        <section class="changelog-content">
+            <button class="back-btn" onclick="toggleChangelog()">← 返回首页</button>
+            <div class="update-header">
+                <h2>版本更新记录</h2>
+                <p>持续优化您的链上分析体验</p>
+            </div>
+            <ul class="update-list">
+                <li class="update-item">
+                    <div class="update-version">v2.2.0 - 智能升级</div>
+                    <div class="update-date">2024年4月1日</div>
+                    <div class="update-details">
+                        <p>新增AI合约风险预测系统</p>
+                        <p>优化内存占用降低40%</p>
+                        <p>增强多链数据同步机制</p>
+                    </div>
+                </li>
+                <li class="update-item">
+                    <div class="update-version">v2.1.0 - 性能突破</div>
+                    <div class="update-date">2024年3月15日</div>
+                    <div class="update-details">
+                        <p>扫链速度提升至毫秒级响应</p>
+                        <p>新增10种智能合约模板</p>
+                        <p>修复交易延迟补偿机制</p>
+                    </div>
+                </li>
+                <li class="update-item">
+                    <div class="update-version">v2.0.0 - 基础版本</div>
+                    <div class="update-date">2024年3月1日</div>
+                    <div class="update-details">
+                        <p>核心交易框架搭建完成</p>
+                        <p>实现基础链上数据分析</p>
+                        <p>基础风险预警系统上线</p>
+                    </div>
+                </li>
+            </ul>
+        </section>
+
+        <!-- 主内容区 -->
+        <div class="main-content">
+            <section class="hero">
+                <h1>科学工具是第一生产力</h1>
+                <p>好的工具能让你事半功倍，专为Solana扫链打造的智能工具</p>
+                <button class="download-btn">立即下载</button>
+            </section>
+
+            <!-- 核心功能区块 -->
+            <div class="core-features">
+                <h2 class="core-title">核心功能</h2>
+                
+                <section class="features">
+                    <div class="feature-card">
+                        <h3>智能合约解析</h3>
+                        <p>深度分析合约代码，实时风险预警系统</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>交易沙盒系统</h3>
+                        <p>零成本模拟交易，可视化策略验证</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>链上热力追踪</h3>
+                        <p>实时捕捉热门合约，智能潜力发现</p>
+                    </div>
+                </section>
+
+                <section class="features">
+                    <div class="feature-card">
+                        <h3>实时数据流</h3>
+                        <p>毫秒级响应速度，领先市场数据更新</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>安全审计</h3>
+                        <p>集成最新安全协议，dapp风险智能识别</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>极简操作</h3>
+                        <p>零学习成本，新手快速掌握</p>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <footer>
+            <p>© 2024 Solana Tools. 由Web3金狗侦探社区构建</p>
+            <div style="margin-top: 1rem;">
+                <a href="https://x.com/MirsZhang74070" style="color: white; margin: 0 1rem;" target="_blank">推特</a>
+                <a href="https://youtu.be/DY_7sW4xgPw" style="color: white; margin: 0 1rem;" target="_blank">油管</a>
+                <a href="https://t.me/jingouzhentan" style="color: white; margin: 0 1rem;" target="_blank">电报</a>
+            </div>
+        </footer>
+    </div>
+
+    <!-- 微信弹窗 -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-content">
+            <button class="close-btn" id="closeBtn">&times;</button>
+            <h3 style="color: var(--dark); margin-bottom: 1rem;">扫码添加作者微信</h3>
+            <img src="wechat-qrcode.jpg" alt="微信二维码" class="qrcode-img">
+            <p style="color: #666; margin-top: 1rem;">打开微信扫一扫</p>
+        </div>
+    </div>
+
+    <script>
+        // 动态布局计算
+        function calculateLayout() {
+            const nav = document.querySelector('.navbar');
+            const changelog = document.querySelector('.changelog-content');
+            const backBtn = document.querySelector('.back-btn');
+            
+            if(nav && changelog && backBtn) {
+                const navHeight = nav.offsetHeight;
+                changelog.style.paddingTop = `${navHeight + 30}px`;
+                backBtn.style.top = `${navHeight/2 - 15}px`;
+            }
+        }
+
+        // 切换功能（已集成底部栏控制）
+        function toggleChangelog() {
+            const mainContent = document.querySelector('.main-content');
+            const changelog = document.querySelector('.changelog-content');
+            const navLink = document.getElementById('changelog-link');
+            const footer = document.querySelector('footer');
+            
+            const isActive = changelog.classList.contains('active');
+            
+            if(isActive) {
+                mainContent.classList.remove('hidden');
+                changelog.classList.remove('active');
+                navLink.classList.remove('active');
+                navLink.textContent = "更新日志";
+                footer.classList.remove('hidden');
+            } else {
+                mainContent.classList.add('hidden');
+                changelog.classList.add('active');
+                navLink.classList.add('active');
+                navLink.textContent = "返回首页";
+                footer.classList.add('hidden');
+            }
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            calculateLayout();
+        }
+
+        // 初始化事件
+        window.addEventListener('load', calculateLayout);
+        window.addEventListener('resize', calculateLayout);
+        document.getElementById('changelog-link').addEventListener('click', toggleChangelog);
+
+        // 微信弹窗控制
+        const wechatLink = document.getElementById('wechat-link');
+        const modalOverlay = document.getElementById('modalOverlay');
+        const closeBtn = document.getElementById('closeBtn');
+
+        wechatLink.addEventListener('click', () => {
+            modalOverlay.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        });
+
+        closeBtn.addEventListener('click', () => {
+            modalOverlay.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        });
+
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) {
+                modalOverlay.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // 移动端触摸控制
+        let touchStartY = 0;
+        document.addEventListener('touchstart', e => {
+            touchStartY = e.touches[0].clientY;
+        }, false);
+
+        document.addEventListener('touchmove', e => {
+            if (modalOverlay.style.display === 'flex') {
+                const touchEndY = e.touches[0].clientY;
+                if (Math.abs(touchEndY - touchStartY) > 10) {
+                    e.preventDefault();
+                }
+            }
+        }, { passive: false });
+    </script>
+</body>
+</html>
+
