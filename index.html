@@ -449,18 +449,20 @@
 </head>
 <body>
     <div class="page-container">
-        <nav class="navbar">
-            <div class="nav-brand">
-                <img src="avatar.jpg" alt="用户头像" class="nav-avatar">
-                <div class="nav-logo">Solana Tools - 金狗侦探</div>
-            </div>
-            <div class="nav-links">
-                <a id="ranking-link" href="javascript:void(0);">邀请排行</a>
-                <a id="changelog-link" href="javascript:void(0);">更新日志</a>
-                <a id="wechat-link" href="javascript:void(0);">联系我们</a>
-                <a id="membership-link" href="javascript:void(0);">成为会员</a>
-            </div>
-        </nav>
+<nav class="navbar">
+    <div class="nav-brand">
+        <img src="avatar.jpg" alt="用户头像" class="nav-avatar">
+        <div class="nav-logo">Solana Tools - 金狗侦探</div>
+    </div>
+    <div class="nav-links">
+
+        <a id="changelog-link" href="javascript:void(0);">更新日志</a>
+        <a id="ranking-link" href="javascript:void(0);">推广排行</a>
+        <!-- 调换位置后的菜单项 -->
+        <a id="membership-link" href="javascript:void(0);">成为会员</a>
+        <a id="wechat-link" href="javascript:void(0);">联系我们</a>
+    </div>
+</nav>
 
         <!-- 各功能面板 -->
         <section class="ranking-content">
@@ -642,7 +644,7 @@
    <script>
         // 增强版交互逻辑
         const textMap = {
-            'ranking-link': '邀请排行',
+            'ranking-link': '推广排行',
             'changelog-link': '更新日志',
             'membership-link': '成为会员',
             'wechat-link': '联系我们'
