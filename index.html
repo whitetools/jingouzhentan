@@ -100,7 +100,8 @@
         }
 
         .changelog-content,
-        .ranking-content {
+        .ranking-content,
+        .membership-content {
             display: none;
             position: absolute;
             top: 0;
@@ -113,7 +114,8 @@
         }
 
         .changelog-content.active,
-        .ranking-content.active {
+        .ranking-content.active,
+        .membership-content.active {
             display: block;
             animation: fadeIn 0.3s ease;
         }
@@ -168,7 +170,7 @@
             padding: 10px 20px;
             border-radius: 25px;
             border: none;
-            cursor: button;
+            cursor: pointer;
             position: fixed;
             top: 1.2rem;
             left: 5%;
@@ -244,6 +246,7 @@
             to { opacity: 1; }
         }
 
+        /* 模态窗口基础样式 */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -265,202 +268,107 @@
             position: relative;
             animation: modalSlide 0.3s ease;
         }
+/* 新增下载弹窗专属样式 */
+.download-modal h3 {
+    color: var(--dark);
+    margin-bottom: 1.5rem;
+}
 
-        .download-modal .modal-content {
-            max-width: 400px;
-        }
+.download-link {
+    display: block;
+    margin: 1.2rem 0;
+    word-break: break-all;
+    line-height: 1.5;
+    color: #333; /* 改为深灰色 */
+    text-decoration: underline;
+}
 
-        .download-link {
-            color: #333;
-            font-size: 1.2rem;
-            word-break: break-all;
-            margin: 1.5rem 0;
-            text-decoration: underline;
-            display: block;
-        }
+.download-password {
+    margin-top: 1.2rem;
+    color: #666;
+    font-weight: 500;
+}
 
-        .download-link:hover {
-            color: #666;
-        }
-
-        .download-password {
-            color: #666;
-            font-size: 1.1rem;
-        }
-
-        .qrcode-img {
-            width: 250px;
-            height: 250px;
-            margin: 1rem 0;
-            border: 1px solid #ddd;
-            padding: 10px;
-        }
-
-        .close-btn {
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            background: none;
-            border: none;
-            font-size: 1.8rem;
-            cursor: pointer;
-            color: var(--dark);
-            transform: translateX(-5px);
-        }
-
+/* 响应式调整（约在媒体查询处添加） */
+@media (max-width: 480px) {
+    .download-link {
+        font-size: 0.9rem;
+        margin: 1rem 0;
+    }
+    .download-password {
+        font-size: 0.9rem;
+    }
+}
         @keyframes modalSlide {
-            from {
-                transform: translateY(-20px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
+    /* 在原有样式基础上增加 */
+    .modal-content {
+        max-width: 320px; /* 电脑端最大宽度限制 */
+        width: 90%;
+        padding: 1.5rem;
+    }
 
-        /* 手机端适配 */
-        @media (max-width: 768px) {
-            .navbar {
-                padding: 0.8rem 5%;
-                flex-wrap: wrap;
-            }
+    .qrcode-img {
+        width: 240px;   /* 电脑端适当缩小尺寸 */
+        height: 240px;
+        max-width: 80vw; /* 保持移动端适应性 */
+        margin: 1rem auto;
+        border: 1px solid #ddd;
+        padding: 10px;
+    }
 
-            .nav-brand {
-                width: 100%;
-                justify-content: center;
-                margin-bottom: 1rem;
-            }
-
-            .nav-links {
-                width: 100%;
-                display: flex;
-                justify-content: center;
-                flex-wrap: wrap;
-                gap: 0.8rem;
-            }
-
-            .nav-links a {
-                margin: 0 0.5rem;
-                font-size: 0.9rem;
-            }
-
-            .hero {
-                padding: 4rem 5% 2rem;
-            }
-
-            .hero h1 {
-                font-size: 1.6rem;
-                line-height: 1.3;
-            }
-
-            .hero p {
-                font-size: 0.9rem;
-            }
-
-            .core-title {
-                font-size: 1.4rem;
-                margin-bottom: 1.5rem;
-            }
-
-            .features {
-                grid-template-columns: 1fr;
-                gap: 1.2rem;
-            }
-
-            .feature-card {
-                padding: 1.5rem;
-                margin: 0 0.5rem;
-            }
-
-            .feature-card h3 {
-                font-size: 1.1rem;
-            }
-
-            .feature-card p {
-                font-size: 0.9rem;
-            }
-
-            .update-list {
-                padding: 1rem 0;
-            }
-
-            .update-item {
-                padding: 1.2rem;
-                margin-bottom: 1.2rem;
-            }
-
-            .update-version {
-                font-size: 0.95rem;
-            }
-
-            .update-date {
-                font-size: 0.8rem;
-            }
-
-            .update-details p {
-                font-size: 0.85rem;
-                padding-left: 0.8rem;
-            }
-
-            .back-btn {
-                padding: 8px 16px;
-                font-size: 0.9rem;
-                left: 3%;
-                top: 1rem;
-            }
-
-            .download-btn {
-                padding: 10px 20px;
-                font-size: 0.95rem;
-            }
-
-            .modal-content {
-                width: 90%;
-                padding: 1.5rem;
-            }
-
-            .qrcode-img {
-                width: 200px;
-                height: 200px;
-            }
-
-            footer {
-                padding: 1.5rem 5%;
-            }
-
-            footer p {
-                font-size: 0.9rem;
-            }
+    @media (min-width: 768px) {
+        /* 电脑端专属调整 */
+        .modal-content {
+            padding: 2rem;
         }
-
-        @media (max-width: 480px) {
-            .nav-links {
-                justify-content: space-around;
-            }
-            
-            .nav-links a {
-                margin: 0;
-                font-size: 0.85rem;
-            }
-
-            .hero h1 {
-                font-size: 1.4rem;
-            }
-
-            .update-item {
-                margin: 0 0.2rem 1rem;
-            }
-
-            .download-link {
-                font-size: 1rem;
-            }
-
-            .qrcode-img {
-                width: 180px;
-                height: 180px;
-            }
+        .qrcode-img {
+            width: 200px;  /* 电脑端适当缩小 */
+            height: 200px;
+            padding: 15px;
         }
+    }
+
+    @media (min-width: 1200px) {
+        /* 超大屏幕微调 */
+        .modal-content {
+            max-width: 360px;
+        }
+    }
+    /* 修改关闭按钮样式 */
+    .close-btn {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        background: none;
+        border: none;
+        font-size: 1.8rem;
+        cursor: pointer;
+        color: var(--dark);
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: opacity 0.2s;
+    }
+
+    .close-btn:hover {
+        opacity: 0.8;
+    }
+
+    /* 手机端微调 */
+    @media (max-width: 480px) {
+        .close-btn {
+            top: 8px;
+            right: 8px;
+            font-size: 1.5rem;
+            width: 36px;
+            height: 36px;
+        }
+    }
     </style>
 </head>
 <body>
@@ -473,11 +381,12 @@
             <div class="nav-links">
                 <a id="ranking-link" href="javascript:void(0);">邀请排行</a>
                 <a id="changelog-link" href="javascript:void(0);">更新日志</a>
-                <a id="wechat-link">联系我们</a>
-                <a href="https://t.me/jingouzhentan" target="_blank">工具社区</a>
+                <a id="wechat-link" href="javascript:void(0);">联系我们</a>
+                <a id="membership-link" href="javascript:void(0);">成为会员</a>
             </div>
         </nav>
 
+        <!-- 各功能面板 -->
         <section class="ranking-content">
             <button class="back-btn" onclick="toggleRanking()">← 返回首页</button>
             <div class="update-header">
@@ -503,14 +412,12 @@
                     <div class="update-version">第三名</div>
                     <div class="update-details">
                         <p>积分：0</p>
-                        <p>账号：正在统计…</p>
+                        <p>账号：正在统计...</p>
                     </div>
                 </li>
-
             </ul>
         </section>
-
-        <section class="changelog-content">
+         <section class="changelog-content">
             <button class="back-btn" onclick="toggleChangelog()">← 返回首页</button>
             <div class="update-header">
                 <h2>版本更新记录</h2>
@@ -519,7 +426,7 @@
             <ul class="update-list">
                 <li class="update-item">
                     <div class="update-version">v1.0.0 - 正式版本</div>
-                    <div class="update-date">2024年4月1日</div>
+                    <div class="update-date">2025年4月1日</div>
                     <div class="update-details">
                         <p>新增多种扫链打新工具</p>
                         <p>优化内存占用降低40%</p>
@@ -545,6 +452,42 @@
                     </div>
                 </li>
             </ul>
+        </section>
+
+        <section class="membership-content">
+            <button class="back-btn" onclick="toggleMembership()">← 返回首页</button>
+            <div class="update-header">
+                <h2>会员套餐</h2>
+                <p>选择适合您的会员方案</p>
+            </div>
+            <div class="features" style="max-width: 1200px; margin: 0 auto;">
+                <div class="feature-card" style="text-align: center;">
+                    <h3>试用版</h3>
+                    <div style="font-size: 2rem; color: var(--primary); margin: 1rem 0;">免费</div>
+                    <p>7天完整功能体验</p>
+                    <p>基础分析功能</p>
+                    <p>每日3次链上扫描</p>
+                    <button class="download-btn" style="margin-top: 1rem;">立即体验</button>
+                </div>
+                
+                <div class="feature-card" style="text-align: center;">
+                    <h3>月卡会员</h3>
+                    <div style="font-size: 2rem; color: var(--primary); margin: 1rem 0;">￥299</div>
+                    <p>完整高级功能</p>
+                    <p>无限次链上扫描</p>
+                    <p>优先客服支持</p>
+                    <button class="download-btn" style="margin-top: 1rem; background: linear-gradient(135deg, #FF6B6B, #FF8E53);">立即购买</button>
+                </div>
+
+                <div class="feature-card" style="text-align: center;">
+                    <h3>年卡会员</h3>
+                    <div style="font-size: 2rem; color: var(--primary); margin: 1rem 0;">￥2599</div>
+                    <p>所有高级功能</p>
+                    <p>专属数据分析报告</p>
+                    <p>VIP技术支持通道</p>
+                    <button class="download-btn" style="margin-top: 1rem; background: linear-gradient(135deg, #4ECDC4, #45B7AF);">立即购买</button>
+                </div>
+            </div>
         </section>
 
         <div class="main-content">
@@ -599,6 +542,7 @@
         </footer>
     </div>
 
+    <!-- 模态弹窗结构 -->
     <div class="modal-overlay" id="modalOverlay">
         <div class="modal-content">
             <button class="close-btn" id="closeWechatBtn">&times;</button>
@@ -607,7 +551,6 @@
             <p style="color: #666; margin-top: 1rem;">打开微信扫一扫</p>
         </div>
     </div>
-
     <div class="modal-overlay" id="downloadOverlay">
         <div class="modal-content download-modal">
             <button class="close-btn" id="closeDownloadBtn">&times;</button>
@@ -620,92 +563,124 @@
             <p class="download-password">密码：1234</p>
         </div>
     </div>
+   <script>
+        // 增强版交互逻辑
+        const textMap = {
+            'ranking-link': '邀请排行',
+            'changelog-link': '更新日志',
+            'membership-link': '成为会员',
+            'wechat-link': '联系我们'
+        };
 
-    <script>
-        // 修复后的JavaScript代码
+        // 面板切换核心逻辑
+        function togglePanel(targetClass, linkId) {
+            const main = document.querySelector('.main-content');
+            const panel = document.querySelector(targetClass);
+            const footer = document.querySelector('footer');
+            const allPanels = document.querySelectorAll('.ranking-content, .changelog-content, .membership-content');
+            const navLinks = document.querySelectorAll('.nav-links a');
+
+            if (panel.classList.contains('active')) {
+                // 关闭面板
+                main.classList.remove('hidden');
+                panel.classList.remove('active');
+                footer.classList.remove('hidden');
+                navLinks.forEach(link => {
+                    link.textContent = textMap[link.id];
+                    link.classList.remove('active');
+                });
+            } else {
+                // 打开面板
+                main.classList.add('hidden');
+                footer.classList.add('hidden');
+                allPanels.forEach(p => p.classList.remove('active'));
+                panel.classList.add('active');
+                navLinks.forEach(link => {
+                    link.textContent = link.id === linkId ? '返回首页' : textMap[link.id];
+                    link.classList.toggle('active', link.id === linkId);
+                });
+            }
+            calculateLayout();
+        }
+
+        // 面板切换方法
+        function toggleRanking() { togglePanel('.ranking-content', 'ranking-link'); }
+        function toggleChangelog() { togglePanel('.changelog-content', 'changelog-link'); }
+        function toggleMembership() { togglePanel('.membership-content', 'membership-link'); }
+
+        // 模态控制
         function closeModal(modalId) {
             document.getElementById(modalId).style.display = 'none';
             document.body.style.overflow = 'auto';
         }
 
+        // 初始化事件
         document.addEventListener('DOMContentLoaded', () => {
-            // 弹窗控制
-            document.getElementById('closeWechatBtn').addEventListener('click', () => closeModal('modalOverlay'));
-            document.getElementById('closeDownloadBtn').addEventListener('click', () => closeModal('downloadOverlay'));
-            
-            document.querySelectorAll('.modal-overlay').forEach(modal => {
-                modal.addEventListener('click', (e) => {
-                    if (e.target === modal) closeModal(modal.id)
+            // 绑定导航点击事件
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', function() {
+                    switch(this.id) {
+                        case 'ranking-link': toggleRanking(); break;
+                        case 'changelog-link': toggleChangelog(); break;
+                        case 'membership-link': toggleMembership(); break;
+                        case 'wechat-link':
+                            document.getElementById('modalOverlay').style.display = 'flex';
+                            document.body.style.overflow = 'hidden';
+                            break;
+                    }
                 });
             });
 
-            // 下载按钮
-            document.querySelector('.download-btn').addEventListener('click', () => {
-                document.getElementById('downloadOverlay').style.display = 'flex';
-                document.body.style.overflow = 'hidden';
+            // 绑定所有下载按钮（包含立即下载和会员购买）
+            document.querySelectorAll('.download-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.getElementById('downloadOverlay').style.display = 'flex';
+                    document.body.style.overflow = 'hidden';
+                });
             });
 
-            // 微信按钮
-            document.getElementById('wechat-link').addEventListener('click', () => {
-                document.getElementById('modalOverlay').style.display = 'flex';
-                document.body.style.overflow = 'hidden';
+            // 绑定模态关闭按钮
+            document.getElementById('closeWechatBtn').addEventListener('click', () => closeModal('modalOverlay'));
+            document.getElementById('closeDownloadBtn').addEventListener('click', () => closeModal('downloadOverlay'));
+
+            // 全局模态外部点击关闭
+            document.querySelectorAll('.modal-overlay').forEach(modal => {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) closeModal(modal.id);
+                });
             });
         });
 
-        // 修复的切换逻辑
-        function togglePanel(targetPanelId, linkId) {
-            const mainContent = document.querySelector('.main-content');
-            const targetPanel = document.querySelector(targetPanelId);
-            const otherPanel = document.querySelector(targetPanelId === '.ranking-content' ? '.changelog-content' : '.ranking-content');
-            const currentLink = document.getElementById(linkId);
-            const otherLink = document.getElementById(linkId === 'ranking-link' ? 'changelog-link' : 'ranking-link');
-            const footer = document.querySelector('footer');
-
-            if (targetPanel.classList.contains('active')) {
-                // 关闭当前面板
-                mainContent.classList.remove('hidden');
-                targetPanel.classList.remove('active');
-                currentLink.classList.remove('active');
-                currentLink.textContent = linkId === 'ranking-link' ? '邀请排行' : '更新日志';
-                footer.classList.remove('hidden');
-            } else {
-                // 打开当前面板
-                mainContent.classList.add('hidden');
-                otherPanel.classList.remove('active');
-                targetPanel.classList.add('active');
-                otherLink.classList.remove('active');
-                otherLink.textContent = linkId === 'ranking-link' ? '更新日志' : '邀请排行';
-                currentLink.classList.add('active');
-                currentLink.textContent = '返回首页';
-                footer.classList.add('hidden');
-            }
-            
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-            calculateLayout();
-        }
-
-        function toggleRanking() { togglePanel('.ranking-content', 'ranking-link'); }
-        function toggleChangelog() { togglePanel('.changelog-content', 'changelog-link'); }
-
+        // 动态布局计算
         function calculateLayout() {
             const nav = document.querySelector('.navbar');
             const backBtns = document.querySelectorAll('.back-btn');
             
-            if(nav && backBtns) {
+            if (nav && backBtns.length > 0) {
                 const navHeight = nav.offsetHeight;
-                document.querySelector('.ranking-content').style.paddingTop = `${navHeight + 30}px`;
-                document.querySelector('.changelog-content').style.paddingTop = `${navHeight + 30}px`;
-                backBtns.forEach(btn => btn.style.top = `${navHeight/2 - 15}px`);
+                const paddingValue = navHeight + 30 + 'px';
+                
+                // 设置所有内容面板的padding
+                document.querySelectorAll('.ranking-content, .changelog-content, .membership-content')
+                      .forEach(panel => panel.style.paddingTop = paddingValue);
+                
+                // 设置返回按钮垂直居中
+                backBtns.forEach(btn => {
+                    btn.style.top = `calc(${navHeight}px / 2 - 15px)`;
+                });
             }
         }
 
-        // 事件绑定
-        document.getElementById('ranking-link').addEventListener('click', toggleRanking);
-        document.getElementById('changelog-link').addEventListener('click', toggleChangelog);
+        // 窗口事件监听
+        window.addEventListener('load', () => {
+            calculateLayout();
+            // 初始化隐藏所有功能面板
+            document.querySelectorAll('.ranking-content, .changelog-content, .membership-content')
+                  .forEach(panel => panel.classList.remove('active'));
+        });
 
-        // 初始化
-        window.addEventListener('load', calculateLayout);
         window.addEventListener('resize', calculateLayout);
     </script>
 </body>
 </html>
+
