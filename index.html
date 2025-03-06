@@ -371,29 +371,26 @@
     }
         /* 新增的移动端导航栏优化 */
 @media (max-width: 768px) {
-    .navbar {
-        flex-wrap: wrap;
-        padding: 0.8rem 5%;
-    }
-
     .nav-links {
         order: 3;
-        /* 替换以下三行 */
-        width: calc(100% + 10%);  /* 新增 */
-        margin: 0.8rem -5% 0;     /* 修改 */
-        padding: 0.5rem 5%;       /* 新增 */
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        display: flex;            /* 新增 */
-        justify-content: space-between;  /* 修改 */
+        width: 100%;
+        margin: 0.8rem 0 0;
+        padding: 0.5rem 0;
+        overflow-x: visible; /* 修改1：去掉滚动条 */
+        display: flex;
+        justify-content: center; /* 修改2：居中显示 */
+        flex-wrap: wrap; /* 新增：允许换行 */
+        gap: 0.8rem; /* 新增：项间距 */
     }
 
-    /* 新增伪元素代码 */
-    .nav-links::before,
-    .nav-links::after {
-        content: '';
-        flex: 1 0 5%;
-        min-width: 5%;
+    /* 删除原来的伪元素代码 */
+    .nav-links a {
+        flex: 0 0 auto;
+        margin: 0 0.8rem !important; /* 缩小间距 */
+        padding: 4px 0;
+        font-size: 0.9rem;
+        white-space: nowrap;
+        position: relative;
     }
 
     .nav-links a {
@@ -406,7 +403,7 @@
         white-space: nowrap;
         position: relative;
     }
-    /* 新增active状态样式 */
+    /* 调整active状态样式 */
     .nav-links a.active::after {
         content: '';
         position: absolute;
