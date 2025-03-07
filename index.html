@@ -195,7 +195,22 @@
             width: fit-content;
             transition: transform 0.2s ease;
         }
+/* 新增购买按钮样式 */
+.purchase-btn {
+    color: white;
+    padding: 12px 24px;
+    border-radius: 8px;
+    text-decoration: none;
+    display: block;
+    width: fit-content;
+    margin: 1rem auto 0;
+    transition: transform 0.2s ease;
+    text-align: center;
+}
 
+.purchase-btn:hover {
+    transform: translateY(-1px);
+}
         .download-btn:hover {
             transform: translateY(-1px);
         }
@@ -469,7 +484,7 @@
             <button class="back-btn" onclick="toggleRanking()">← 返回首页</button>
             <div class="update-header">
                 <h2>会员积分排行</h2>
-                <p>邀请用户使用可获得积分奖励</p>
+                <p>邀请用户使用可获得积分和现金奖励</p>
             </div>
             <ul class="update-list">
                 <li class="update-item">
@@ -499,7 +514,7 @@
             <button class="back-btn" onclick="toggleChangelog()">← 返回首页</button>
             <div class="update-header">
                 <h2>版本更新记录</h2>
-                <p>持续优化您的链上分析体验</p>
+                <p>我们将持续优化您的链上分析体验</p>
             </div>
             <ul class="update-list">
                 <li class="update-item">
@@ -543,29 +558,38 @@
                     <h3>试用版</h3>
                     <div style="font-size: 2rem; color: var(--primary); margin: 1rem 0;">免费</div>
                     <p>7天完整功能体验</p>
-                    <p>基础分析功能</p>
-                    <p>每日3次链上扫描</p>
+                    <p>完整分析功能</p>
+                    <p>独立验证系统</p>
                     <button class="download-btn" style="margin-top: 1rem;">立即体验</button>
                 </div>
                 
-                <div class="feature-card" style="text-align: center;">
-                    <h3>月卡会员</h3>
-                    <div style="font-size: 2rem; color: var(--primary); margin: 1rem 0;">￥299</div>
-                    <p>完整高级功能</p>
-                    <p>无限次链上扫描</p>
-                    <p>优先客服支持</p>
-                    <button class="download-btn" style="margin-top: 1rem; background: linear-gradient(135deg, #FF6B6B, #FF8E53);">立即购买</button>
-                </div>
+<div class="feature-card" style="text-align: center;">
+    <h3>月费会员</h3>
+    <div style="font-size: 2rem; color: var(--primary); margin: 1rem 0;">￥299</div>
+    <p>完整高级功能</p>
+    <p>无限次链上扫描</p>
+    <p>优先客服支持</p>
+    <a href="https://www.bilibili.com/" 
+       target="_blank" 
+       class="purchase-btn" 
+       style="margin-top: 1rem; background: linear-gradient(135deg, #FF6B6B, #FF8E53);">
+        立即购买
+    </a>
+</div>
 
-                <div class="feature-card" style="text-align: center;">
-                    <h3>年卡会员</h3>
-                    <div style="font-size: 2rem; color: var(--primary); margin: 1rem 0;">￥2599</div>
-                    <p>所有高级功能</p>
-                    <p>专属数据分析报告</p>
-                    <p>VIP技术支持通道</p>
-                    <button class="download-btn" style="margin-top: 1rem; background: linear-gradient(135deg, #4ECDC4, #45B7AF);">立即购买</button>
-                </div>
-            </div>
+<div class="feature-card" style="text-align: center;">
+    <h3>年费会员</h3>
+    <div style="font-size: 2rem; color: var(--primary); margin: 1rem 0;">￥2599</div>
+    <p>所有高级功能</p>
+    <p>新功能抢先体验</p>
+    <p>VIP技术支持通道</p>
+    <a href="https://www.baidu123.com/" 
+       target="_blank" 
+       class="purchase-btn" 
+       style="margin-top: 1rem; background: linear-gradient(135deg, #4ECDC4, #45B7AF);">
+        立即购买
+    </a>
+</div>
         </section>
 
         <div class="main-content">
@@ -761,3 +785,4 @@
     </script>
 </body>
 </html>
+
