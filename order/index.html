@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>支付结果 - 金狗侦探</title>
     <style>
-        /* 继承主站设计变量 */
         :root {
             --primary: #7C3AED;
             --dark: #1A1A1A;
@@ -37,7 +36,7 @@
             background: white;
             border-radius: 12px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-            padding: 2.5rem;
+            padding: 2rem;
             position: relative;
             overflow: hidden;
         }
@@ -52,26 +51,15 @@
             background: linear-gradient(135deg, var(--primary), #4F46E5);
         }
 
-        .result-header {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .status-icon {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 1.5rem;
-            background-size: contain;
-        }
-
-        .success .status-icon {
-            background-image: url('data:image/svg+xml;utf8,<svg ...>'); /* 成功图标 */
+        .time-display {
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 1.5rem;
         }
 
         .detail-item {
             display: flex;
-            justify-content: space-between;
-            padding: 1.2rem 0;
+            padding: 1rem 0;
             border-bottom: 1px solid #eee;
             align-items: center;
         }
@@ -79,14 +67,13 @@
         .detail-label {
             color: #666;
             font-weight: 500;
-            flex: 0 0 120px;
+            width: 100px;
+            flex-shrink: 0;
         }
 
         .detail-value {
             font-weight: 600;
             color: var(--dark);
-            text-align: right;
-            flex: 1;
         }
 
         .status-tag {
@@ -113,8 +100,7 @@
             border-radius: 8px;
             border: none;
             cursor: pointer;
-            margin: 2rem auto 0;
-            display: block;
+            margin-top: 2rem;
             transition: transform 0.2s ease;
         }
 
@@ -132,23 +118,17 @@
                 padding: 1.5rem;
             }
             
-            .detail-item {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            
             .detail-label {
-                margin-bottom: 0.5rem;
+                width: 80px;
+                font-size: 0.9em;
             }
         }
     </style>
 </head>
 <body>
     <div class="payment-container">
-        <div class="result-card success"> <!-- 切换为 error 显示失败状态 -->
-            <div class="result-header">
-                <h1>支付结果通知</h1>
-            </div>
+        <div class="result-card success">
+            <div class="time-display" id="currentTime"></div>
             
             <div class="detail-item">
                 <span class="detail-label">支付单号</span>
@@ -170,14 +150,31 @@
                 <span class="status-tag status-success" id="result">支付成功</span>
             </div>
 
-            <button class="return-btn" onclick="window.history.back()">返回工具中心</button>
+            <button class="return-btn" onclick="location.href='https://whitetools.github.io/jingouzhentan/'">
+                返回工具中心
+            </button>
         </div>
     </div>
 
     <script>
+        // 时间格式化函数
+        function formatTime(date) {
+            const year = date.getFullYear();
+            const month = (date.getMonth() + 1).toString().padStart(2, '0');
+            const day = date.getDate().toString().padStart(2, '0');
+            const hours = date.getHours().toString().padStart(2, '0');
+            const minutes = date.getMinutes().toString().padStart(2, '0');
+            const seconds = date.getSeconds().toString().padStart(2, '0');
+            return `${year}年${month}月${day}日 ${hours}:${minutes}:${seconds}`;
+        }
+
         // 动态参数注入
         function initPaymentResult() {
             try {
+                // 显示当前时间
+                const timeElement = document.getElementById('currentTime');
+                timeElement.textContent = formatTime(new Date());
+
                 const params = new URLSearchParams(location.search);
                 const card = document.querySelector('.result-card');
                 
