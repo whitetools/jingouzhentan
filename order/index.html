@@ -147,19 +147,19 @@
         <div class="transaction-details">
             <div class="detail-item">
                 <span class="detail-label">支付时间</span>
-                <span class="detail-value" id="currentTime">2023-08-20 14:30:45</span>
+                <span class="detail-value" id="currentTime">--</span>
             </div>
             <div class="detail-item">
                 <span class="detail-label">支付单号</span>
-                <span class="detail-value" id="xddOrder">2025082014304599</span>
+                <span class="detail-value" id="xddOrder">--</span>
             </div>
             <div class="detail-item">
                 <span class="detail-label">用户账号</span>
-                <span class="detail-value" id="userId">JD_1234567</span>
+                <span class="detail-value" id="userId">--</span>
             </div>
             <div class="detail-item">
                 <span class="detail-label">支付金额</span>
-                <span class="detail-value" id="amount">¥ 299.00</span>
+                <span class="detail-value" id="amount">--</span>
             </div>
         </div>
 
@@ -174,51 +174,108 @@
     </div>
 
     <script>
-        // 动态数据注入
-        function initPayment() {
-            const params = new URLSearchParams(location.search);
-            
-            // 格式化时间
-            const formatTime = (date) => {
-                return new Intl.DateTimeFormat('zh-CN', {
-                    year: 'numeric',
-                    month: '2-digit',
-                    day: '2-digit',
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    second: '2-digit',
-                    hour12: false
-                }).format(date).replace(/\//g, '-');
-            };
+        // 订单号时间解析函数
+        function parseOrderTime(orderNo) {
+            try {
+                // 验证订单号格式（至少包含14位数字）
+                if (!orderNo || orderNo.length < 14 || !/^\d+$/.test(orderNo)) {
+                    return null;
+                }
 
-            document.getElementById('currentTime').textContent = formatTime(new Date());
-            document.getElementById('xddOrder').textContent = params.get('xddpay_order') || '--';
-            document.getElementById('userId').textContent = params.get('subject') ? 
-                decodeURIComponent(params.get('subject')).match(/用户:(\d+)/)?.[1] || '--' : '--';
-            document.getElementById('amount').textContent = params.get('money') ? 
-                `¥ ${parseFloat(params.get('money')).toFixed(2)}` : '--';
+                // 提取时间部分（前14位）
+                const timeStr = orderNo.substring(0, 14);
+                
+                // 分解时间组成部分
+                const year = timeStr.substring(0, 4);
+                const month = timeStr.substring(4, 6);
+                const day = timeStr.substring(6, 8);
+                const hour = timeStr.substring(8, 10);
+                const minute = timeStr.substring(10, 12);
+                const second = timeStr.substring(12, 14);
+
+                // 创建日期对象（本地时间）
+                return new Date(`${year}-${month}-${day}T${hour}:${minute}:${second}`);
+            } catch {
+                return null;
+            }
         }
 
-        // 保存功能
+        // 时间格式化函数
+        function formatDateTime(date) {
+            if (!(date instanceof Date) || isNaN(date)) return '--';
+            
+            return new Intl.DateTimeFormat('zh-CN', {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: false
+            }).format(date).replace(/\//g, '-');
+        }
+
+        // 初始化支付信息
+        function initPayment() {
+            const params = new URLSearchParams(location.search);
+            const orderNo = params.get('xddpay_order');
+
+            // 设置支付单号
+            document.getElementById('xddOrder').textContent = orderNo || '--';
+
+            // 解析并显示时间
+            const orderTime = orderNo ? parseOrderTime(orderNo) : null;
+            document.getElementById('currentTime').textContent = 
+                orderTime ? formatDateTime(orderTime) : '--';
+
+            // 解析用户账号
+            const subject = params.get('subject') ? 
+                decodeURIComponent(params.get('subject')) : '';
+            const userId = subject.match(/用户:(\d+)/)?.[1] || '--';
+            document.getElementById('userId').textContent = userId;
+
+            // 设置支付金额
+            const amount = params.get('money');
+            document.getElementById('amount').textContent = 
+                amount ? `¥ ${parseFloat(amount).toFixed(2)}` : '--';
+        }
+
+        // 保存支付凭证功能
         function savePayment() {
-            const content = `【金狗侦探交易凭证】
+            try {
+                const content = `【金狗侦探支付凭证】
 支付时间：${document.getElementById('currentTime').textContent}
 支付单号：${document.getElementById('xddOrder').textContent}
 用户账号：${document.getElementById('userId').textContent}
 支付金额：${document.getElementById('amount').textContent}`;
 
-            const blob = new Blob([content], { type: 'text/plain' });
-            const url = URL.createObjectURL(blob);
-            
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `交易凭证_${document.getElementById('xddOrder').textContent}.txt`;
-            a.click();
-            
-            URL.revokeObjectURL(url);
+                const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+                const url = URL.createObjectURL(blob);
+                
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `支付凭证_${document.getElementById('xddOrder').textContent}.txt`;
+                document.body.appendChild(a);
+                a.click();
+                
+                URL.revokeObjectURL(url);
+                document.body.removeChild(a);
+
+            } catch (e) {
+                alert('保存失败，请稍后重试');
+                console.error('保存错误:', e);
+            }
         }
 
+        // 初始化页面
         window.addEventListener('DOMContentLoaded', initPayment);
+
+        // 处理浏览器返回缓存
+        window.addEventListener('pageshow', function(event) {
+            if (event.persisted) {
+                initPayment();
+            }
+        });
     </script>
 </body>
 </html>
