@@ -7,213 +7,218 @@
     <style>
         :root {
             --primary: #7C3AED;
-            --dark: #1A1A1A;
-            --light: #F8FAFC;
-            --success: #27ae60;
-            --error: #e74c3c;
+            --surface: #FFFFFF;
+            --background: #F8FAFC;
+            --success: #27AE60;
+            --text-primary: #2D3748;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Roboto', 'Helvetica Neue', sans-serif;
+            font-family: 'Inter', system-ui, sans-serif;
         }
 
         body {
-            background: var(--light);
-            color: var(--dark);
-            line-height: 1.6;
+            background: var(--background);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
         }
 
-        .payment-container {
-            max-width: 680px;
-            margin: 4rem auto;
-            padding: 0 5%;
-        }
-
-        .result-card {
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-            padding: 2rem;
+        .payment-card {
+            background: var(--surface);
+            border-radius: 24px;
+            box-shadow: 0 12px 32px rgba(124, 58, 237, 0.08);
+            padding: 2.5rem;
+            width: 100%;
+            max-width: 480px;
             position: relative;
             overflow: hidden;
         }
 
-        .result-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 4px;
-            height: 100%;
-            background: linear-gradient(135deg, var(--primary), #4F46E5);
+        .brand-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            position: relative;
         }
 
-        .time-display {
-            color: #666;
-            font-size: 0.9em;
-            margin-bottom: 1.5rem;
+        .brand-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 1.5rem;
+            border: 3px solid var(--primary);
+            box-shadow: 0 4px 16px rgba(124, 58, 237, 0.15);
+        }
+
+        .title-group h1 {
+            font-size: 1.8rem;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.5px;
+        }
+
+        .transaction-details {
+            margin: 2rem 0;
+            background: #F9FAFB;
+            border-radius: 16px;
+            padding: 1.5rem;
         }
 
         .detail-item {
             display: flex;
-            padding: 1rem 0;
-            border-bottom: 1px solid #eee;
+            justify-content: space-between;
             align-items: center;
+            padding: 1rem 0;
         }
 
         .detail-label {
-            color: #666;
-            font-weight: 500;
-            width: 100px;
-            flex-shrink: 0;
+            color: #718096;
+            font-size: 0.95rem;
+            flex: 0 0 100px;
         }
 
         .detail-value {
-            font-weight: 600;
-            color: var(--dark);
+            color: var(--text-primary);
+            font-weight: 500;
+            text-align: right;
+            flex: 1;
         }
 
-        .status-tag {
-            display: inline-block;
-            padding: 6px 15px;
-            border-radius: 20px;
-            font-size: 0.9em;
+        .button-group {
+            display: grid;
+            gap: 1rem;
+            margin-top: 2rem;
         }
 
-        .status-success {
-            background: var(--success);
-            color: white;
-        }
-
-        .status-error {
-            background: var(--error);
-            color: white;
-        }
-
-        .return-btn {
-            background: linear-gradient(135deg, var(--primary), #4F46E5);
-            color: white;
-            padding: 12px 30px;
-            border-radius: 8px;
+        .action-btn {
+            padding: 14px;
+            border-radius: 12px;
             border: none;
             cursor: pointer;
-            margin-top: 2rem;
-            transition: transform 0.2s ease;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-        .return-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
+        .primary-btn {
+            background: linear-gradient(135deg, var(--primary), #6B46C1);
+            color: white;
         }
 
-        @media (max-width: 768px) {
-            .payment-container {
-                margin: 2rem auto;
+        .secondary-btn {
+            background: rgba(124, 58, 237, 0.1);
+            color: var(--primary);
+        }
+
+        @media (max-width: 480px) {
+            .payment-card {
+                padding: 1.8rem;
+                border-radius: 20px;
             }
-            
-            .result-card {
-                padding: 1.5rem;
+
+            .brand-avatar {
+                width: 72px;
+                height: 72px;
             }
-            
-            .detail-label {
-                width: 80px;
-                font-size: 0.9em;
+
+            .title-group h1 {
+                font-size: 1.6rem;
             }
         }
     </style>
 </head>
 <body>
-    <div class="payment-container">
-        <div class="result-card success">
-            <div class="time-display" id="currentTime"></div>
-            
+    <div class="payment-card">
+        <div class="brand-header">
+            <img src="your-avatar.jpg" alt="金狗侦探" class="brand-avatar">
+            <div class="title-group">
+                <h1>支付结果确认</h1>
+            </div>
+        </div>
+
+        <div class="transaction-details">
+            <div class="detail-item">
+                <span class="detail-label">支付时间</span>
+                <span class="detail-value" id="currentTime">2023-08-20 14:30:45</span>
+            </div>
             <div class="detail-item">
                 <span class="detail-label">支付单号</span>
-                <span class="detail-value" id="xddOrder">20250309200713778646</span>
+                <span class="detail-value" id="xddOrder">2025082014304599</span>
             </div>
-
             <div class="detail-item">
                 <span class="detail-label">用户账号</span>
-                <span class="detail-value" id="userId">1234567</span>
+                <span class="detail-value" id="userId">JD_1234567</span>
             </div>
-
             <div class="detail-item">
                 <span class="detail-label">支付金额</span>
-                <span class="detail-value" id="amount">¥ 1.00</span>
+                <span class="detail-value" id="amount">¥ 299.00</span>
             </div>
+        </div>
 
-            <div class="detail-item">
-                <span class="detail-label">支付状态</span>
-                <span class="status-tag status-success" id="result">支付成功</span>
-            </div>
-
-            <button class="return-btn" onclick="location.href='https://whitetools.github.io/jingouzhentan/'">
+        <div class="button-group">
+            <button class="action-btn primary-btn" onclick="location.href='https://whitetools.github.io/jingouzhentan/'">
                 返回工具中心
+            </button>
+            <button class="action-btn secondary-btn" onclick="savePayment()">
+                保存交易凭证
             </button>
         </div>
     </div>
 
     <script>
-        // 时间格式化函数
-        function formatTime(date) {
-            const year = date.getFullYear();
-            const month = (date.getMonth() + 1).toString().padStart(2, '0');
-            const day = date.getDate().toString().padStart(2, '0');
-            const hours = date.getHours().toString().padStart(2, '0');
-            const minutes = date.getMinutes().toString().padStart(2, '0');
-            const seconds = date.getSeconds().toString().padStart(2, '0');
-            return `${year}年${month}月${day}日 ${hours}:${minutes}:${seconds}`;
+        // 动态数据注入
+        function initPayment() {
+            const params = new URLSearchParams(location.search);
+            
+            // 格式化时间
+            const formatTime = (date) => {
+                return new Intl.DateTimeFormat('zh-CN', {
+                    year: 'numeric',
+                    month: '2-digit',
+                    day: '2-digit',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit',
+                    hour12: false
+                }).format(date).replace(/\//g, '-');
+            };
+
+            document.getElementById('currentTime').textContent = formatTime(new Date());
+            document.getElementById('xddOrder').textContent = params.get('xddpay_order') || '--';
+            document.getElementById('userId').textContent = params.get('subject') ? 
+                decodeURIComponent(params.get('subject')).match(/用户:(\d+)/)?.[1] || '--' : '--';
+            document.getElementById('amount').textContent = params.get('money') ? 
+                `¥ ${parseFloat(params.get('money')).toFixed(2)}` : '--';
         }
 
-        // 动态参数注入
-        function initPaymentResult() {
-            try {
-                // 显示当前时间
-                const timeElement = document.getElementById('currentTime');
-                timeElement.textContent = formatTime(new Date());
+        // 保存功能
+        function savePayment() {
+            const content = `【金狗侦探交易凭证】
+支付时间：${document.getElementById('currentTime').textContent}
+支付单号：${document.getElementById('xddOrder').textContent}
+用户账号：${document.getElementById('userId').textContent}
+支付金额：${document.getElementById('amount').textContent}`;
 
-                const params = new URLSearchParams(location.search);
-                const card = document.querySelector('.result-card');
-                
-                // 支付状态设置
-                const result = params.get('result');
-                const statusTag = document.getElementById('result');
-                if(result === 'success') {
-                    card.classList.add('success');
-                    card.classList.remove('error');
-                    statusTag.className = 'status-tag status-success';
-                    statusTag.textContent = '支付成功';
-                } else {
-                    card.classList.add('error');
-                    card.classList.remove('success');
-                    statusTag.className = 'status-tag status-error';
-                    statusTag.textContent = '支付失败';
-                }
-
-                // 支付单号
-                document.getElementById('xddOrder').textContent = params.get('xddpay_order') || '--';
-
-                // 支付金额
-                const amount = params.get('money');
-                document.getElementById('amount').textContent = 
-                    amount ? `¥ ${parseFloat(amount).toFixed(2)}` : '--';
-
-                // 用户账号解析
-                const subject = params.get('subject') ? 
-                    decodeURIComponent(params.get('subject')) : '';
-                const userId = subject.match(/用户:(\d+)/)?.[1] || '--';
-                document.getElementById('userId').textContent = userId;
-
-            } catch (e) {
-                console.error('解析错误:', e);
-            }
+            const blob = new Blob([content], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `交易凭证_${document.getElementById('xddOrder').textContent}.txt`;
+            a.click();
+            
+            URL.revokeObjectURL(url);
         }
 
-        // 初始化
-        window.addEventListener('DOMContentLoaded', initPaymentResult);
+        window.addEventListener('DOMContentLoaded', initPayment);
     </script>
 </body>
 </html>
