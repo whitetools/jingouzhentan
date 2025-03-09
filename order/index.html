@@ -71,16 +71,16 @@
     </div>
 
     <script>
+        // 核心修正：使用当前页面URL而不是referrer
+        function getUrlParams() {
+            const currentUrl = window.location.href;
+            const url = new URL(currentUrl);
+            return new URLSearchParams(url.search);
+        }
+
         function parseParams() {
             try {
-                const referrer = document.referrer;
-                if (!referrer) {
-                    showError('请通过支付完成页面跳转访问');
-                    return;
-                }
-
-                const url = new URL(referrer);
-                const params = new URLSearchParams(url.search);
+                const params = getUrlParams();
 
                 // 核心参数解析
                 updateField('orderNo', params.get('order_no'));
@@ -88,7 +88,7 @@
                 updateCurrency('amount', params.get('money'));
                 updateField('result', params.get('result'));
                 
-                // 特殊解析用户ID（从subject参数）
+                // 从subject参数解析用户ID
                 const subject = params.get('subject') ? 
                     decodeURIComponent(params.get('subject')) : '';
                 const userIdMatch = subject.match(/用户:(\d+)/);
@@ -150,8 +150,6 @@
 
         // 初始加载
         parseParams();
-        // 自动刷新（每2秒）
-        setInterval(parseParams, 2000);
     </script>
 </body>
 </html>
