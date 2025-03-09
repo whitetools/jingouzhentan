@@ -2,154 +2,221 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>订单信息解析</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>支付结果 - 金狗侦探</title>
     <style>
+        /* 继承主站设计变量 */
+        :root {
+            --primary: #7C3AED;
+            --dark: #1A1A1A;
+            --light: #F8FAFC;
+            --success: #27ae60;
+            --error: #e74c3c;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', 'Helvetica Neue', sans-serif;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 50px auto;
-            padding: 20px;
-            background: #f8f9fa;
+            background: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
         }
-        .card {
+
+        .payment-container {
+            max-width: 680px;
+            margin: 4rem auto;
+            padding: 0 5%;
+        }
+
+        .result-card {
             background: white;
-            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            padding: 2.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .result-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary), #4F46E5);
+        }
+
+        .result-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .status-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            background-size: contain;
+        }
+
+        .success .status-icon {
+            background-image: url('data:image/svg+xml;utf8,<svg ...>'); /* 成功图标 */
+        }
+
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 1.2rem 0;
+            border-bottom: 1px solid #eee;
+            align-items: center;
+        }
+
+        .detail-label {
+            color: #666;
+            font-weight: 500;
+            flex: 0 0 120px;
+        }
+
+        .detail-value {
+            font-weight: 600;
+            color: var(--dark);
+            text-align: right;
+            flex: 1;
+        }
+
+        .status-tag {
+            display: inline-block;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+        }
+
+        .status-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .status-error {
+            background: var(--error);
+            color: white;
+        }
+
+        .return-btn {
+            background: linear-gradient(135deg, var(--primary), #4F46E5);
+            color: white;
+            padding: 12px 30px;
             border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
+            border: none;
+            cursor: pointer;
+            margin: 2rem auto 0;
+            display: block;
+            transition: transform 0.2s ease;
         }
-        .highlight {
-            color: #1890ff;
-            font-size: 1.4em;
-            font-weight: bold;
-            margin: 10px 0;
+
+        .return-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
         }
-        .param-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 15px;
-        }
-        .param-table th {
-            background-color: #f1f3f5;
-            padding: 12px;
-            text-align: left;
-        }
-        .param-table td {
-            padding: 12px;
-            border-top: 1px solid #e9ecef;
-        }
-        .currency {
-            color: #2b8a3e;
-            font-family: monospace;
-        }
-        .warning {
-            color: #c92a2a;
-            background: #fff3bf;
-            padding: 10px;
-            border-radius: 4px;
+
+        @media (max-width: 768px) {
+            .payment-container {
+                margin: 2rem auto;
+            }
+            
+            .result-card {
+                padding: 1.5rem;
+            }
+            
+            .detail-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .detail-label {
+                margin-bottom: 0.5rem;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="card">
-        <h1>订单验证结果</h1>
-        <div class="info-block">
-            <p>商户订单号：<span id="orderNo" class="highlight">解析中...</span></p>
-            <p>支付系统单号：<span id="xddOrder" class="highlight">解析中...</span></p>
-            <p>支付金额：<span id="amount" class="highlight currency">解析中...</span></p>
-            <p>用户ID：<span id="userId" class="highlight">解析中...</span></p>
-            <p>支付结果：<span id="result" class="highlight">解析中...</span></p>
-        </div>
-        <button onclick="parseParams()" style="margin-top:15px; padding:8px 20px;">刷新验证</button>
-    </div>
+    <div class="payment-container">
+        <div class="result-card success"> <!-- 切换为 error 显示失败状态 -->
+            <div class="result-header">
+                <h1>支付结果通知</h1>
+            </div>
+            
+            <div class="detail-item">
+                <span class="detail-label">支付单号</span>
+                <span class="detail-value" id="xddOrder">20250309200713778646</span>
+            </div>
 
-    <div class="card">
-        <h3>完整参数解析</h3>
-        <table class="param-table" id="paramTable">
-            <tr><th>参数名</th><th>参数值</th></tr>
-        </table>
+            <div class="detail-item">
+                <span class="detail-label">用户账号</span>
+                <span class="detail-value" id="userId">1234567</span>
+            </div>
+
+            <div class="detail-item">
+                <span class="detail-label">支付金额</span>
+                <span class="detail-value" id="amount">¥ 1.00</span>
+            </div>
+
+            <div class="detail-item">
+                <span class="detail-label">支付状态</span>
+                <span class="status-tag status-success" id="result">支付成功</span>
+            </div>
+
+            <button class="return-btn" onclick="window.history.back()">返回工具中心</button>
+        </div>
     </div>
 
     <script>
-        // 核心修正：使用当前页面URL而不是referrer
-        function getUrlParams() {
-            const currentUrl = window.location.href;
-            const url = new URL(currentUrl);
-            return new URLSearchParams(url.search);
-        }
-
-        function parseParams() {
+        // 动态参数注入
+        function initPaymentResult() {
             try {
-                const params = getUrlParams();
-
-                // 核心参数解析
-                updateField('orderNo', params.get('order_no'));
-                updateField('xddOrder', params.get('xddpay_order'));
-                updateCurrency('amount', params.get('money'));
-                updateField('result', params.get('result'));
+                const params = new URLSearchParams(location.search);
+                const card = document.querySelector('.result-card');
                 
-                // 从subject参数解析用户ID
+                // 支付状态设置
+                const result = params.get('result');
+                const statusTag = document.getElementById('result');
+                if(result === 'success') {
+                    card.classList.add('success');
+                    card.classList.remove('error');
+                    statusTag.className = 'status-tag status-success';
+                    statusTag.textContent = '支付成功';
+                } else {
+                    card.classList.add('error');
+                    card.classList.remove('success');
+                    statusTag.className = 'status-tag status-error';
+                    statusTag.textContent = '支付失败';
+                }
+
+                // 支付单号
+                document.getElementById('xddOrder').textContent = params.get('xddpay_order') || '--';
+
+                // 支付金额
+                const amount = params.get('money');
+                document.getElementById('amount').textContent = 
+                    amount ? `¥ ${parseFloat(amount).toFixed(2)}` : '--';
+
+                // 用户账号解析
                 const subject = params.get('subject') ? 
                     decodeURIComponent(params.get('subject')) : '';
-                const userIdMatch = subject.match(/用户:(\d+)/);
-                updateField('userId', userIdMatch ? userIdMatch[1] : null);
-
-                // 构建参数表
-                refreshParamTable(params);
+                const userId = subject.match(/用户:(\d+)/)?.[1] || '--';
+                document.getElementById('userId').textContent = userId;
 
             } catch (e) {
-                showError(`解析失败: ${e.message}`);
+                console.error('解析错误:', e);
             }
         }
 
-        function updateField(elementId, value) {
-            const element = document.getElementById(elementId);
-            element.innerHTML = value || 
-                `<span class="warning">未提供</span>`;
-        }
-
-        function updateCurrency(elementId, value) {
-            const element = document.getElementById(elementId);
-            const amount = parseFloat(value);
-            element.innerHTML = value ? 
-                `￥${amount.toFixed(2)}` : 
-                `<span class="warning">金额异常</span>`;
-        }
-
-        function refreshParamTable(params) {
-            const table = document.getElementById('paramTable');
-            table.innerHTML = `<tr><th>参数名</th><th>参数值</th></tr>`;
-            
-            params.forEach((value, key) => {
-                const row = table.insertRow();
-                row.innerHTML = `
-                    <td>${key}</td>
-                    <td>${decodeURIComponent(value)}</td>
-                `;
-            });
-
-            // 添加额外解析行
-            const subject = params.get('subject') ? 
-                decodeURIComponent(params.get('subject')) : '';
-            if (subject) {
-                const row = table.insertRow();
-                row.innerHTML = `
-                    <td>subject(解析后)</td>
-                    <td>${subject}</td>
-                `;
-            }
-        }
-
-        function showError(msg) {
-            document.body.innerHTML += `
-                <div class="card warning">
-                    ${msg}
-                </div>
-            `;
-        }
-
-        // 初始加载
-        parseParams();
+        // 初始化
+        window.addEventListener('DOMContentLoaded', initPaymentResult);
     </script>
 </body>
 </html>
