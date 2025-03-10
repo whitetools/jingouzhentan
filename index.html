@@ -461,6 +461,106 @@
             }
         }
     </style>
+    <!-- 新增充值提示弹窗 -->
+    <div class="modal-overlay" id="rechargeOverlay">
+        <div class="modal-content download-modal">
+            <button class="close-btn" id="closeRechargeBtn">&times;</button>
+            <div style="text-align: center; padding: 20px;">
+                <svg style="width: 60px; height: 60px; color: #4ECDC4;" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <h3 style="color: var(--dark); margin: 1rem 0;">请于客户端中进行充值</h3>
+                <p style="color: #666;">打开已下载的客户端，进入充值页面完成支付</p>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        /* 在原有样式基础上添加 */
+        .purchase-btn {
+            border: none !important; /* 移除边框 */
+            outline: none !important; /* 移除焦点轮廓 */
+            cursor: pointer; /* 手形鼠标 */
+            transition: all 0.3s ease; /* 添加过渡效果 */
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15); /* 添加阴影提升质感 */
+        }
+
+        /* 月费按钮悬停效果 */
+        .purchase-btn[style*="FF6B6B"]:hover {
+            background: linear-gradient(135deg, #FF8E53, #FF6B6B) !important;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255,107,107,0.3);
+        }
+
+        /* 年费按钮悬停效果 */
+        .purchase-btn[style*="4ECDC4"]:hover {
+            background: linear-gradient(135deg, #45B7AF, #4ECDC4) !important;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(78,205,196,0.3);
+        }
+
+        /* 移除所有按钮的焦点状态轮廓 */
+        .purchase-btn:focus {
+            outline: none !important;
+            box-shadow: 0 0 0 3px rgba(124,58,237,0.3) !important;
+        }
+    </style>
+
+
+<style>
+    /* 在原有样式基础上添加 */
+    .download-btn {
+        cursor: pointer;
+        transition: all 0.3s ease !important;
+        box-shadow: 0 2px 6px rgba(124,58,237,0.2) !important;
+        border: none !important;
+        position: relative;
+        overflow: hidden;
+    }
+
+    /* 基础悬停效果 */
+    .download-btn:hover {
+        background: linear-gradient(135deg, #8B5CF6, #7C3AED) !important;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(124,58,237,0.3) !important;
+    }
+
+    /* 点击涟漪效果 */
+    .download-btn::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 300px;
+        height: 300px;
+        background: rgba(255,255,255,0.2);
+        border-radius: 50%;
+        transform: translate(-50%, -50%) scale(0);
+        animation: ripple 0.6s ease-out;
+    }
+
+    @keyframes ripple {
+        from {
+            transform: translate(-50%, -50%) scale(0);
+            opacity: 1;
+        }
+        to {
+            transform: translate(-50%, -50%) scale(2);
+            opacity: 0;
+        }
+    }
+
+    /* 焦点状态 */
+    .download-btn:focus {
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(139,92,246,0.3) !important;
+    }
+</style>
+
+
+
+
+
 </head>
 <body>
     <div class="page-container">
@@ -563,33 +663,33 @@
                     <button class="download-btn" style="margin-top: 1rem;">立即体验</button>
                 </div>
                 
-<div class="feature-card" style="text-align: center;">
-    <h3>月费会员</h3>
-    <div style="font-size: 2rem; color: var(--primary); margin: 1rem 0;">￥299</div>
-    <p>完整高级功能</p>
-    <p>无限次链上扫描</p>
-    <p>优先客服支持</p>
-    <a href="https://www.bilibili.com/" 
-       target="_blank" 
-       class="purchase-btn" 
-       style="margin-top: 1rem; background: linear-gradient(135deg, #FF6B6B, #FF8E53);">
-        立即购买
-    </a>
-</div>
+    <div class="feature-card" style="text-align: center;">
+        <h3>月费会员</h3>
+        <div style="font-size: 2rem; color: var(--primary); margin: 1rem 0;">￥299</div>
+        <p>完整高级功能</p>
+        <p>无限次链上扫描</p>
+        <p>优先客服支持</p>
+        <button class="purchase-btn" 
+                style="margin-top: 1rem; 
+                       background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+                       color: white;">
+            立即购买
+        </button>
+    </div>
 
-<div class="feature-card" style="text-align: center;">
-    <h3>年费会员</h3>
-    <div style="font-size: 2rem; color: var(--primary); margin: 1rem 0;">￥2599</div>
-    <p>所有高级功能</p>
-    <p>新功能抢先体验</p>
-    <p>VIP技术支持通道</p>
-    <a href="https://www.baidu123.com/" 
-       target="_blank" 
-       class="purchase-btn" 
-       style="margin-top: 1rem; background: linear-gradient(135deg, #4ECDC4, #45B7AF);">
-        立即购买
-    </a>
-</div>
+    <div class="feature-card" style="text-align: center;">
+        <h3>年费会员</h3>
+        <div style="font-size: 2rem; color: var(--primary); margin: 1rem 0;">￥2599</div>
+        <p>所有高级功能</p>
+        <p>新功能抢先体验</p>
+        <p>VIP技术支持通道</p>
+        <button class="purchase-btn" 
+                style="margin-top: 1rem; 
+                       background: linear-gradient(135deg, #4ECDC4, #45B7AF);
+                       color: white;">
+            立即购买
+        </button>
+    </div>
         </section>
 
         <div class="main-content">
@@ -665,124 +765,135 @@
             <p class="download-password">密码：1234</p>
         </div>
     </div>
-   <script>
-        // 增强版交互逻辑
-        const textMap = {
-            'ranking-link': '推广排行',
-            'changelog-link': '更新日志',
-            'membership-link': '成为会员',
-            'wechat-link': '联系我们'
-        };
+<script>
+    // 增强版交互逻辑
+    const textMap = {
+        'ranking-link': '推广排行',
+        'changelog-link': '更新日志',
+        'membership-link': '成为会员',
+        'wechat-link': '联系我们'
+    };
 
-        // 面板切换核心逻辑
-        function togglePanel(targetClass, linkId) {
-            const main = document.querySelector('.main-content');
-            const panel = document.querySelector(targetClass);
-            const footer = document.querySelector('footer');
-            const allPanels = document.querySelectorAll('.ranking-content, .changelog-content, .membership-content');
-            const navLinks = document.querySelectorAll('.nav-links a');
+    // 面板切换核心逻辑
+    function togglePanel(targetClass, linkId) {
+        const main = document.querySelector('.main-content');
+        const panel = document.querySelector(targetClass);
+        const footer = document.querySelector('footer');
+        const allPanels = document.querySelectorAll('.ranking-content, .changelog-content, .membership-content');
+        const navLinks = document.querySelectorAll('.nav-links a');
 
-            if (panel.classList.contains('active')) {
-                // 关闭面板
-                main.classList.remove('hidden');
-                panel.classList.remove('active');
-                footer.classList.remove('hidden');
-                navLinks.forEach(link => {
-                    link.textContent = textMap[link.id];
-                    link.classList.remove('active');
-                });
-            } else {
-                // 打开面板
-                main.classList.add('hidden');
-                footer.classList.add('hidden');
-                allPanels.forEach(p => p.classList.remove('active'));
-                panel.classList.add('active');
-                navLinks.forEach(link => {
-                    link.textContent = link.id === linkId ? '返回首页' : textMap[link.id];
-                    link.classList.toggle('active', link.id === linkId);
-                });
-            }
-            calculateLayout();
-        }
-
-        // 面板切换方法
-        function toggleRanking() { togglePanel('.ranking-content', 'ranking-link'); }
-        function toggleChangelog() { togglePanel('.changelog-content', 'changelog-link'); }
-        function toggleMembership() { togglePanel('.membership-content', 'membership-link'); }
-
-        // 模态控制
-        function closeModal(modalId) {
-            document.getElementById(modalId).style.display = 'none';
-            document.body.style.overflow = 'auto';
-        }
-
-        // 初始化事件
-        document.addEventListener('DOMContentLoaded', () => {
-            // 绑定导航点击事件
-            document.querySelectorAll('.nav-links a').forEach(link => {
-                link.addEventListener('click', function() {
-                    switch(this.id) {
-                        case 'ranking-link': toggleRanking(); break;
-                        case 'changelog-link': toggleChangelog(); break;
-                        case 'membership-link': toggleMembership(); break;
-                        case 'wechat-link':
-                            document.getElementById('modalOverlay').style.display = 'flex';
-                            document.body.style.overflow = 'hidden';
-                            break;
-                    }
-                });
+        if (panel.classList.contains('active')) {
+            // 关闭面板
+            main.classList.remove('hidden');
+            panel.classList.remove('active');
+            footer.classList.remove('hidden');
+            navLinks.forEach(link => {
+                link.textContent = textMap[link.id];
+                link.classList.remove('active');
             });
-
-            // 绑定所有下载按钮（包含立即下载和会员购买）
-            document.querySelectorAll('.download-btn').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    document.getElementById('downloadOverlay').style.display = 'flex';
-                    document.body.style.overflow = 'hidden';
-                });
+        } else {
+            // 打开面板
+            main.classList.add('hidden');
+            footer.classList.add('hidden');
+            allPanels.forEach(p => p.classList.remove('active'));
+            panel.classList.add('active');
+            navLinks.forEach(link => {
+                link.textContent = link.id === linkId ? '返回首页' : textMap[link.id];
+                link.classList.toggle('active', link.id === linkId);
             });
+        }
+        calculateLayout();
+    }
 
-            // 绑定模态关闭按钮
-            document.getElementById('closeWechatBtn').addEventListener('click', () => closeModal('modalOverlay'));
-            document.getElementById('closeDownloadBtn').addEventListener('click', () => closeModal('downloadOverlay'));
+    // 面板切换方法
+    function toggleRanking() { togglePanel('.ranking-content', 'ranking-link'); }
+    function toggleChangelog() { togglePanel('.changelog-content', 'changelog-link'); }
+    function toggleMembership() { togglePanel('.membership-content', 'membership-link'); }
 
-            // 全局模态外部点击关闭
-            document.querySelectorAll('.modal-overlay').forEach(modal => {
-                modal.addEventListener('click', (e) => {
-                    if (e.target === modal) closeModal(modal.id);
-                });
+    // 模态控制
+    function closeModal(modalId) {
+        document.getElementById(modalId).style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
+
+    // 初始化事件
+    document.addEventListener('DOMContentLoaded', () => {
+        // 绑定导航点击事件
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', function() {
+                switch(this.id) {
+                    case 'ranking-link': toggleRanking(); break;
+                    case 'changelog-link': toggleChangelog(); break;
+                    case 'membership-link': toggleMembership(); break;
+                    case 'wechat-link':
+                        document.getElementById('modalOverlay').style.display = 'flex';
+                        document.body.style.overflow = 'hidden';
+                        break;
+                }
             });
         });
 
-        // 动态布局计算
-        function calculateLayout() {
-            const nav = document.querySelector('.navbar');
-            const backBtns = document.querySelectorAll('.back-btn');
+        // 绑定所有下载按钮
+        document.querySelectorAll('.download-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.getElementById('downloadOverlay').style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        // 绑定购买按钮点击事件
+        document.querySelectorAll('.purchase-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.getElementById('rechargeOverlay').style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        // 绑定模态关闭按钮
+        document.getElementById('closeWechatBtn').addEventListener('click', () => closeModal('modalOverlay'));
+        document.getElementById('closeDownloadBtn').addEventListener('click', () => closeModal('downloadOverlay'));
+        document.getElementById('closeRechargeBtn').addEventListener('click', () => closeModal('rechargeOverlay'));
+
+        // 全局模态外部点击关闭
+        document.querySelectorAll('.modal-overlay').forEach(modal => {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) closeModal(modal.id);
+            });
+        });
+    });
+
+    // 动态布局计算
+    function calculateLayout() {
+        const nav = document.querySelector('.navbar');
+        const backBtns = document.querySelectorAll('.back-btn');
+        
+        if (nav && backBtns.length > 0) {
+            const navHeight = nav.offsetHeight;
+            const paddingValue = navHeight + 30 + 'px';
             
-            if (nav && backBtns.length > 0) {
-                const navHeight = nav.offsetHeight;
-                const paddingValue = navHeight + 30 + 'px';
-                
-                // 设置所有内容面板的padding
-                document.querySelectorAll('.ranking-content, .changelog-content, .membership-content')
-                      .forEach(panel => panel.style.paddingTop = paddingValue);
-                
-                // 设置返回按钮垂直居中
-                backBtns.forEach(btn => {
-                    btn.style.top = `calc(${navHeight}px / 2 - 15px)`;
-                });
-            }
-        }
-
-        // 窗口事件监听
-        window.addEventListener('load', () => {
-            calculateLayout();
-            // 初始化隐藏所有功能面板
+            // 设置所有内容面板的padding
             document.querySelectorAll('.ranking-content, .changelog-content, .membership-content')
-                  .forEach(panel => panel.classList.remove('active'));
-        });
+                  .forEach(panel => panel.style.paddingTop = paddingValue);
+            
+            // 设置返回按钮垂直居中
+            backBtns.forEach(btn => {
+                btn.style.top = `calc(${navHeight}px / 2 - 15px)`;
+            });
+        }
+    }
 
-        window.addEventListener('resize', calculateLayout);
-    </script>
+    // 窗口事件监听
+    window.addEventListener('load', () => {
+        calculateLayout();
+        // 初始化隐藏所有功能面板
+        document.querySelectorAll('.ranking-content, .changelog-content, .membership-content')
+              .forEach(panel => panel.classList.remove('active'));
+    });
+
+    window.addEventListener('resize', calculateLayout);
+</script>
+
+
+
 </body>
 </html>
-
