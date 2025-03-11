@@ -7,9 +7,10 @@
     <title>Solana Tools - 金狗侦探</title>
     <style>
         :root {
-            --primary: #7C3AED;
-            --dark: #1A1A1A;
-            --light: #F8FAFC;
+            --primary: #4F46E5;
+            --light: #FFFFFF;
+            --secondary: #F8FAFC;
+            --text: #374151;
         }
 
         * {
@@ -17,6 +18,7 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Roboto', 'Helvetica Neue', sans-serif;
+            color: var(--text);
         }
 
         .page-container {
@@ -24,18 +26,20 @@
             flex-direction: column;
             min-height: 100vh;
             position: relative;
+            background: var(--secondary);
         }
 
         .navbar {
             padding: 1rem 5%;
-            background: var(--dark);
+            background: var(--light);
             display: flex;
             align-items: center;
             justify-content: space-between;
             position: sticky;
             top: 0;
             z-index: 100;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border-bottom: 1px solid #E5E7EB;
         }
 
         .nav-brand {
@@ -49,11 +53,11 @@
             height: 40px;
             border-radius: 50%;
             object-fit: cover;
-            border: 2px solid rgba(255,255,255,0.1);
+            border: 2px solid rgba(0,0,0,0.1);
         }
 
         .nav-logo {
-            color: white !important;
+            color: var(--text) !important;
             font-size: 1.5rem;
             font-weight: bold;
             background: none !important;
@@ -61,7 +65,7 @@
         }
 
         .nav-links a {
-            color: white;
+            color: var(--text);
             text-decoration: none;
             margin-left: 2rem;
             cursor: pointer;
@@ -69,7 +73,7 @@
         }
 
         .nav-links a.active {
-            background: linear-gradient(135deg, var(--primary), #4F46E5);
+            background: linear-gradient(135deg, var(--primary), #6366F1);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -95,7 +99,7 @@
             text-align: center;
             font-size: 1.8rem;
             font-weight: 700;
-            color: var(--dark);
+            color: var(--text);
             margin-bottom: 2rem;
         }
 
@@ -128,11 +132,12 @@
         }
 
         .update-item {
-            background: white;
+            background: var(--light);
             padding: 2rem;
             border-radius: 12px;
             margin-bottom: 2rem;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border: 1px solid #F3F4F6;
             transition: transform 0.3s ease;
         }
 
@@ -165,7 +170,7 @@
         }
 
         .back-btn {
-            background: linear-gradient(135deg, var(--primary), #4F46E5);
+            background: linear-gradient(135deg, var(--primary), #6366F1);
             color: white;
             padding: 10px 20px;
             border-radius: 25px;
@@ -175,7 +180,7 @@
             top: 1.2rem;
             left: 5%;
             z-index: 101;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
             transition: transform 0.2s ease;
         }
 
@@ -184,7 +189,7 @@
         }
 
         .download-btn {
-            background: linear-gradient(135deg, var(--primary), #4F46E5);
+            background: linear-gradient(135deg, var(--primary), #6366F1);
             color: white;
             padding: 12px 24px;
             border-radius: 8px;
@@ -195,31 +200,33 @@
             width: fit-content;
             transition: transform 0.2s ease;
         }
-/* 新增购买按钮样式 */
-.purchase-btn {
-    color: white;
-    padding: 12px 24px;
-    border-radius: 8px;
-    text-decoration: none;
-    display: block;
-    width: fit-content;
-    margin: 1rem auto 0;
-    transition: transform 0.2s ease;
-    text-align: center;
-}
 
-.purchase-btn:hover {
-    transform: translateY(-1px);
-}
+        .purchase-btn {
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            display: block;
+            width: fit-content;
+            margin: 1rem auto 0;
+            transition: transform 0.2s ease;
+            text-align: center;
+        }
+
+        .purchase-btn:hover {
+            transform: translateY(-1px);
+        }
+
         .download-btn:hover {
             transform: translateY(-1px);
         }
 
         .hero {
-            background: linear-gradient(45deg, var(--dark), #2D3748);
+            background: linear-gradient(45deg, #F8FAFC, #F1F5F9);
             padding: 6rem 5% 4rem;
-            color: white;
+            color: var(--text);
             text-align: center;
+            border-bottom: 1px solid #E5E7EB;
         }
 
         .features {
@@ -232,9 +239,10 @@
         .feature-card {
             padding: 2rem;
             border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            background: white;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            background: var(--light);
             transition: transform 0.3s ease;
+            border: 1px solid #F3F4F6;
         }
 
         .feature-card:hover {
@@ -243,13 +251,14 @@
 
         footer {
             margin-top: auto;
-            background: var(--dark);
-            color: white;
+            background: var(--light);
+            color: var(--text);
             padding: 2rem 5%;
             text-align: center;
             position: relative;
             z-index: 3;
             transition: all 0.3s ease;
+            border-top: 1px solid #E5E7EB;
         }
 
         footer.hidden {
@@ -261,7 +270,6 @@
             to { opacity: 1; }
         }
 
-        /* 模态窗口基础样式 */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -276,158 +284,143 @@
         }
 
         .modal-content {
-            background: white;
+            background: var(--light);
             padding: 2rem;
             border-radius: 12px;
             text-align: center;
             position: relative;
             animation: modalSlide 0.3s ease;
         }
-/* 新增下载弹窗专属样式 */
-.download-modal h3 {
-    color: var(--dark);
-    margin-bottom: 1.5rem;
-}
 
-.download-link {
-    display: block;
-    margin: 1.2rem 0;
-    word-break: break-all;
-    line-height: 1.5;
-    color: #333; /* 改为深灰色 */
-    text-decoration: underline;
-}
+        .download-modal h3 {
+            color: var(--text);
+            margin-bottom: 1.5rem;
+        }
 
-.download-password {
-    margin-top: 1.2rem;
-    color: #666;
-    font-weight: 500;
-}
+        .download-link {
+            display: block;
+            margin: 1.2rem 0;
+            word-break: break-all;
+            line-height: 1.5;
+            color: #333;
+            text-decoration: underline;
+        }
 
-/* 响应式调整（约在媒体查询处添加） */
-@media (max-width: 480px) {
-    .download-link {
-        font-size: 0.9rem;
-        margin: 1rem 0;
-    }
-    .download-password {
-        font-size: 0.9rem;
-    }
-}
+        .download-password {
+            margin-top: 1.2rem;
+            color: #666;
+            font-weight: 500;
+        }
+
+        @media (max-width: 480px) {
+            .download-link {
+                font-size: 0.9rem;
+                margin: 1rem 0;
+            }
+            .download-password {
+                font-size: 0.9rem;
+            }
+        }
+
         @keyframes modalSlide {
             from { transform: translateY(-20px); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
         }
-    /* 在原有样式基础上增加 */
-    .modal-content {
-        max-width: 320px; /* 电脑端最大宽度限制 */
-        width: 90%;
-        padding: 1.5rem;
-    }
 
-    .qrcode-img {
-        width: 240px;   /* 电脑端适当缩小尺寸 */
-        height: 240px;
-        max-width: 80vw; /* 保持移动端适应性 */
-        margin: 1rem auto;
-        border: 1px solid #ddd;
-        padding: 10px;
-    }
-
-    @media (min-width: 768px) {
-        /* 电脑端专属调整 */
         .modal-content {
-            padding: 2rem;
+            max-width: 320px;
+            width: 90%;
+            padding: 1.5rem;
         }
+
         .qrcode-img {
-            width: 200px;  /* 电脑端适当缩小 */
-            height: 200px;
-            padding: 15px;
+            width: 240px;
+            height: 240px;
+            max-width: 80vw;
+            margin: 1rem auto;
+            border: 1px solid #ddd;
+            padding: 10px;
         }
-    }
 
-    @media (min-width: 1200px) {
-        /* 超大屏幕微调 */
-        .modal-content {
-            max-width: 360px;
+        @media (min-width: 768px) {
+            .modal-content {
+                padding: 2rem;
+            }
+            .qrcode-img {
+                width: 200px;
+                height: 200px;
+                padding: 15px;
+            }
         }
-    }
-    /* 修改关闭按钮样式 */
-    .close-btn {
-        position: absolute;
-        top: 12px;
-        right: 12px;
-        background: none;
-        border: none;
-        font-size: 1.8rem;
-        cursor: pointer;
-        color: var(--dark);
-        width: 40px;
-        height: 40px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: opacity 0.2s;
-    }
 
-    .close-btn:hover {
-        opacity: 0.8;
-    }
+        @media (min-width: 1200px) {
+            .modal-content {
+                max-width: 360px;
+            }
+        }
 
-    /* 手机端微调 */
-    @media (max-width: 480px) {
         .close-btn {
-            top: 8px;
-            right: 8px;
-            font-size: 1.5rem;
-            width: 36px;
-            height: 36px;
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: var(--text);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.2s;
         }
-    }
-        /* 新增的移动端导航栏优化 */
-@media (max-width: 768px) {
-    .nav-links {
-        order: 3;
-        width: 100%;
-        margin: 0.8rem 0 0;
-        padding: 0.5rem 0;
-        overflow-x: visible; /* 修改1：去掉滚动条 */
-        display: flex;
-        justify-content: center; /* 修改2：居中显示 */
-        flex-wrap: wrap; /* 新增：允许换行 */
-        gap: 0.8rem; /* 新增：项间距 */
-    }
 
-    /* 删除原来的伪元素代码 */
-    .nav-links a {
-        flex: 0 0 auto;
-        margin: 0 0.8rem !important; /* 缩小间距 */
-        padding: 4px 0;
-        font-size: 0.9rem;
-        white-space: nowrap;
-        position: relative;
-    }
+        .close-btn:hover {
+            opacity: 0.8;
+        }
 
-    .nav-links a {
-        /* 替换以下三行 */
-        flex: 0 0 auto;           /* 新增 */
-        margin: 0 1.2rem !important;  /* 修改 */
-        padding: 4px 0;
-        /* 保持原有样式 */
-        font-size: 0.9rem;
-        white-space: nowrap;
-        position: relative;
-    }
-    /* 调整active状态样式 */
-    .nav-links a.active::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 2px;
-        background: linear-gradient(135deg, var(--primary), #4F46E5);
-    }
+        @media (max-width: 480px) {
+            .close-btn {
+                top: 8px;
+                right: 8px;
+                font-size: 1.5rem;
+                width: 36px;
+                height: 36px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                order: 3;
+                width: 100%;
+                margin: 0.8rem 0 0;
+                padding: 0.5rem 0;
+                display: flex;
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 0.8rem;
+            }
+
+            .nav-links a {
+                flex: 0 0 auto;
+                margin: 0 0.8rem !important;
+                padding: 4px 0;
+                font-size: 0.9rem;
+                white-space: nowrap;
+                position: relative;
+            }
+
+            .nav-links a.active::after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                height: 2px;
+                background: linear-gradient(135deg, var(--primary), #6366F1);
+            }
+
             .nav-logo {
                 font-size: 1.2rem;
             }
@@ -443,25 +436,77 @@
             }
         }
 
-        /* 原有手机端微调 */
-        @media (max-width: 480px) {
-            .download-link {
-                font-size: 0.9rem;
-                margin: 1rem 0;
+        .purchase-btn {
+            border: none !important;
+            outline: none !important;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        .purchase-btn[style*="FF6B6B"]:hover {
+            background: linear-gradient(135deg, #FF8E53, #FF6B6B) !important;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255,107,107,0.2);
+        }
+
+        .purchase-btn[style*="4ECDC4"]:hover {
+            background: linear-gradient(135deg, #45B7AF, #4ECDC4) !important;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(78,205,196,0.2);
+        }
+
+        .purchase-btn:focus {
+            outline: none !important;
+            box-shadow: 0 0 0 3px rgba(79,70,229,0.2) !important;
+        }
+
+        .download-btn {
+            cursor: pointer;
+            transition: all 0.3s ease !important;
+            box-shadow: 0 2px 6px rgba(79,70,229,0.15) !important;
+            border: none !important;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .download-btn:hover {
+            background: linear-gradient(135deg, #6366F1, #4F46E5) !important;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(79,70,229,0.2) !important;
+        }
+
+        .download-btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300px;
+            height: 300px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            animation: ripple 0.6s ease-out;
+        }
+
+        @keyframes ripple {
+            from {
+                transform: translate(-50%, -50%) scale(0);
+                opacity: 1;
             }
-            .download-password {
-                font-size: 0.9rem;
-            }
-            .close-btn {
-                top: 8px;
-                right: 8px;
-                font-size: 1.5rem;
-                width: 36px;
-                height: 36px;
+            to {
+                transform: translate(-50%, -50%) scale(2);
+                opacity: 0;
             }
         }
+
+        .download-btn:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(99,102,241,0.2) !important;
+        }
     </style>
-    <!-- 新增充值提示弹窗 -->
+
+    <!-- 充值提示弹窗 -->
     <div class="modal-overlay" id="rechargeOverlay">
         <div class="modal-content download-modal">
             <button class="close-btn" id="closeRechargeBtn">&times;</button>
@@ -469,117 +514,54 @@
                 <svg style="width: 60px; height: 60px; color: #4ECDC4;" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                 </svg>
-                <h3 style="color: var(--dark); margin: 1rem 0;">请于客户端中进行充值</h3>
+                <h3 style="color: var(--text); margin: 1rem 0;">请于客户端中进行充值</h3>
                 <p style="color: #666;">打开已下载的客户端，进入充值页面完成支付</p>
             </div>
         </div>
     </div>
-
     <style>
-        /* 在原有样式基础上添加 */
-        .purchase-btn {
-            border: none !important; /* 移除边框 */
-            outline: none !important; /* 移除焦点轮廓 */
-            cursor: pointer; /* 手形鼠标 */
-            transition: all 0.3s ease; /* 添加过渡效果 */
-            box-shadow: 0 2px 6px rgba(0,0,0,0.15); /* 添加阴影提升质感 */
+        /* 新增顶部横幅背景色修改 */
+        .hero {
+            background: linear-gradient(45deg, #E5E8EC, #EDF2F7);  /* 加深背景色 */
+            border-bottom: 1px solid #D1D5DB;  /* 加深边框颜色 */
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);  /* 增加柔和阴影 */
         }
 
-        /* 月费按钮悬停效果 */
-        .purchase-btn[style*="FF6B6B"]:hover {
-            background: linear-gradient(135deg, #FF8E53, #FF6B6B) !important;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(255,107,107,0.3);
+        /* 保持其他浅色主题设置不变 */
+    </style>
+    <style>
+        /* 新增更深的背景渐变 */
+        .hero {
+            background: linear-gradient(45deg, #D1D5DB, #E5E7EB);
+            /* 调整为更浅的边框和阴影 */
+            border-bottom: 1px solid #CBD5E1;  /* 比原#9CA3AF浅40% */
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);  /* 透明度从0.08降为0.05 */
         }
 
-        /* 年费按钮悬停效果 */
-        .purchase-btn[style*="4ECDC4"]:hover {
-            background: linear-gradient(135deg, #45B7AF, #4ECDC4) !important;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(78,205,196,0.3);
+        /* 保持文字对比度 */
+        .hero h1 {
+            color: #1F2937;  /* 文字颜色加深 */
         }
-
-        /* 移除所有按钮的焦点状态轮廓 */
-        .purchase-btn:focus {
-            outline: none !important;
-            box-shadow: 0 0 0 3px rgba(124,58,237,0.3) !important;
+        .hero p {
+            color: #4B5563;  /* 副标题加深 */
         }
     </style>
-
-
-<style>
-    /* 在原有样式基础上添加 */
-    .download-btn {
-        cursor: pointer;
-        transition: all 0.3s ease !important;
-        box-shadow: 0 2px 6px rgba(124,58,237,0.2) !important;
-        border: none !important;
-        position: relative;
-        overflow: hidden;
-    }
-
-    /* 基础悬停效果 */
-    .download-btn:hover {
-        background: linear-gradient(135deg, #8B5CF6, #7C3AED) !important;
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(124,58,237,0.3) !important;
-    }
-
-    /* 点击涟漪效果 */
-    .download-btn::after {
-        content: '';
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 300px;
-        height: 300px;
-        background: rgba(255,255,255,0.2);
-        border-radius: 50%;
-        transform: translate(-50%, -50%) scale(0);
-        animation: ripple 0.6s ease-out;
-    }
-
-    @keyframes ripple {
-        from {
-            transform: translate(-50%, -50%) scale(0);
-            opacity: 1;
-        }
-        to {
-            transform: translate(-50%, -50%) scale(2);
-            opacity: 0;
-        }
-    }
-
-    /* 焦点状态 */
-    .download-btn:focus {
-        outline: none;
-        box-shadow: 0 0 0 3px rgba(139,92,246,0.3) !important;
-    }
-</style>
-
-
-
-
-
 </head>
 <body>
     <div class="page-container">
-<nav class="navbar">
-    <div class="nav-brand">
-        <img src="avatar.jpg" alt="用户头像" class="nav-avatar">
-        <div class="nav-logo">Solana Tools - 金狗侦探</div>
-    </div>
-    <div class="nav-links">
+        <nav class="navbar">
+            <div class="nav-brand">
+                <img src="avatar.jpg" alt="用户头像" class="nav-avatar">
+                <div class="nav-logo">Solana Tools - 金狗侦探</div>
+            </div>
+            <div class="nav-links">
+                <a id="changelog-link" href="javascript:void(0);">更新日志</a>
+                <a id="ranking-link" href="javascript:void(0);">推广排行</a>
+                <a id="membership-link" href="javascript:void(0);">成为会员</a>
+                <a id="wechat-link" href="javascript:void(0);">联系我们</a>
+            </div>
+        </nav>
 
-        <a id="changelog-link" href="javascript:void(0);">更新日志</a>
-        <a id="ranking-link" href="javascript:void(0);">推广排行</a>
-        <!-- 调换位置后的菜单项 -->
-        <a id="membership-link" href="javascript:void(0);">成为会员</a>
-        <a id="wechat-link" href="javascript:void(0);">联系我们</a>
-    </div>
-</nav>
-
-        <!-- 各功能面板 -->
         <section class="ranking-content">
             <button class="back-btn" onclick="toggleRanking()">← 返回首页</button>
             <div class="update-header">
@@ -610,13 +592,14 @@
                 </li>
             </ul>
         </section>
-         <section class="changelog-content">
+
+        <section class="changelog-content">
             <button class="back-btn" onclick="toggleChangelog()">← 返回首页</button>
             <div class="update-header">
                 <h2>版本更新记录</h2>
                 <p>我们将持续优化您的链上分析体验</p>
             </div>
-            <ul class="update-list">
+              <ul class="update-list">
                 <li class="update-item">
                     <div class="update-version">v1.0.0 - 正式版本</div>
                     <div class="update-date">2025年4月1日</div>
@@ -663,42 +646,42 @@
                     <button class="download-btn" style="margin-top: 1rem;">立即体验</button>
                 </div>
                 
-    <div class="feature-card" style="text-align: center;">
-        <h3>月费会员</h3>
-        <div style="font-size: 2rem; color: var(--primary); margin: 1rem 0;">￥299</div>
-        <p>完整高级功能</p>
-        <p>无限次链上扫描</p>
-        <p>优先客服支持</p>
-        <button class="purchase-btn" 
-                style="margin-top: 1rem; 
-                       background: linear-gradient(135deg, #FF6B6B, #FF8E53);
-                       color: white;">
-            立即购买
-        </button>
-    </div>
+                <div class="feature-card" style="text-align: center;">
+                    <h3>月费会员</h3>
+                    <div style="font-size: 2rem; color: var(--primary); margin: 1rem 0;">￥299</div>
+                    <p>完整高级功能</p>
+                    <p>无限次链上扫描</p>
+                    <p>优先客服支持</p>
+                    <button class="purchase-btn" 
+                            style="margin-top: 1rem; 
+                                   background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+                                   color: white;">
+                        立即购买
+                    </button>
+                </div>
 
-    <div class="feature-card" style="text-align: center;">
-        <h3>年费会员</h3>
-        <div style="font-size: 2rem; color: var(--primary); margin: 1rem 0;">￥2599</div>
-        <p>所有高级功能</p>
-        <p>新功能抢先体验</p>
-        <p>VIP技术支持通道</p>
-        <button class="purchase-btn" 
-                style="margin-top: 1rem; 
-                       background: linear-gradient(135deg, #4ECDC4, #45B7AF);
-                       color: white;">
-            立即购买
-        </button>
-    </div>
+                <div class="feature-card" style="text-align: center;">
+                    <h3>年费会员</h3>
+                    <div style="font-size: 2rem; color: var(--primary); margin: 1rem 0;">￥2599</div>
+                    <p>所有高级功能</p>
+                    <p>新功能抢先体验</p>
+                    <p>VIP技术支持通道</p>
+                    <button class="purchase-btn" 
+                            style="margin-top: 1rem; 
+                                   background: linear-gradient(135deg, #4ECDC4, #45B7AF);
+                                   color: white;">
+                        立即购买
+                    </button>
+                </div>
+            </div>
         </section>
 
         <div class="main-content">
-            <section class="hero">
-                <h1>科学工具是第一生产力</h1>
-                <p>好的工具能让你事半功倍，专为Solana扫链打造的智能工具</p>
-                <button class="download-btn">立即下载</button>
-            </section>
-
+    <section class="hero">
+        <h1>科学工具是第一生产力</h1>
+        <p>好的工具能让你事半功倍，专为Solana扫链打造的智能工具</p>
+        <button class="download-btn">立即下载</button>
+    </section>
             <div class="core-features">
                 <h2 class="core-title">核心功能</h2>
                 
@@ -737,9 +720,9 @@
         <footer>
             <p>© 2024 Solana Tools. 由Web3金狗侦探社区构建</p>
             <div style="margin-top: 1rem;">
-                <a href="https://x.com/MirsZhang74070" style="color: white; margin: 0 1rem;" target="_blank">推特</a>
-                <a href="https://youtu.be/DY_7sW4xgPw" style="color: white; margin: 0 1rem;" target="_blank">油管</a>
-                <a href="https://t.me/jingouzhentan" style="color: white; margin: 0 1rem;" target="_blank">电报</a>
+                <a href="https://x.com/MirsZhang74070" style="color: var(--text); margin: 0 1rem;" target="_blank">推特</a>
+                <a href="https://youtu.be/DY_7sW4xgPw" style="color: var(--text); margin: 0 1rem;" target="_blank">油管</a>
+                <a href="https://t.me/jingouzhentan" style="color: var(--text); margin: 0 1rem;" target="_blank">电报</a>
             </div>
         </footer>
     </div>
@@ -748,7 +731,7 @@
     <div class="modal-overlay" id="modalOverlay">
         <div class="modal-content">
             <button class="close-btn" id="closeWechatBtn">&times;</button>
-            <h3 style="color: var(--dark); margin-bottom: 1rem;">扫码添加作者微信</h3>
+            <h3 style="color: var(--text); margin-bottom: 1rem;">扫码添加作者微信</h3>
             <img src="wechat-qrcode.jpg" alt="微信二维码" class="qrcode-img">
             <p style="color: #666; margin-top: 1rem;">打开微信扫一扫</p>
         </div>
@@ -756,7 +739,7 @@
     <div class="modal-overlay" id="downloadOverlay">
         <div class="modal-content download-modal">
             <button class="close-btn" id="closeDownloadBtn">&times;</button>
-            <h3 style="color: #000;">蓝奏云下载地址</h3>
+            <h3 style="color: var(--text);">蓝奏云下载地址</h3>
             <a href="https://wwus.lanzouu.com/b0065vqtdc" 
                class="download-link" 
                target="_blank">
@@ -765,8 +748,9 @@
             <p class="download-password">密码：1234</p>
         </div>
     </div>
+
 <script>
-    // 增强版交互逻辑
+    // 交互逻辑保持不变
     const textMap = {
         'ranking-link': '推广排行',
         'changelog-link': '更新日志',
@@ -774,7 +758,6 @@
         'wechat-link': '联系我们'
     };
 
-    // 面板切换核心逻辑
     function togglePanel(targetClass, linkId) {
         const main = document.querySelector('.main-content');
         const panel = document.querySelector(targetClass);
@@ -783,7 +766,6 @@
         const navLinks = document.querySelectorAll('.nav-links a');
 
         if (panel.classList.contains('active')) {
-            // 关闭面板
             main.classList.remove('hidden');
             panel.classList.remove('active');
             footer.classList.remove('hidden');
@@ -792,7 +774,6 @@
                 link.classList.remove('active');
             });
         } else {
-            // 打开面板
             main.classList.add('hidden');
             footer.classList.add('hidden');
             allPanels.forEach(p => p.classList.remove('active'));
@@ -805,20 +786,16 @@
         calculateLayout();
     }
 
-    // 面板切换方法
     function toggleRanking() { togglePanel('.ranking-content', 'ranking-link'); }
     function toggleChangelog() { togglePanel('.changelog-content', 'changelog-link'); }
     function toggleMembership() { togglePanel('.membership-content', 'membership-link'); }
 
-    // 模态控制
     function closeModal(modalId) {
         document.getElementById(modalId).style.display = 'none';
         document.body.style.overflow = 'auto';
     }
 
-    // 初始化事件
     document.addEventListener('DOMContentLoaded', () => {
-        // 绑定导航点击事件
         document.querySelectorAll('.nav-links a').forEach(link => {
             link.addEventListener('click', function() {
                 switch(this.id) {
@@ -833,7 +810,6 @@
             });
         });
 
-        // 绑定所有下载按钮
         document.querySelectorAll('.download-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 document.getElementById('downloadOverlay').style.display = 'flex';
@@ -841,7 +817,6 @@
             });
         });
 
-        // 绑定购买按钮点击事件
         document.querySelectorAll('.purchase-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 document.getElementById('rechargeOverlay').style.display = 'flex';
@@ -849,12 +824,10 @@
             });
         });
 
-        // 绑定模态关闭按钮
         document.getElementById('closeWechatBtn').addEventListener('click', () => closeModal('modalOverlay'));
         document.getElementById('closeDownloadBtn').addEventListener('click', () => closeModal('downloadOverlay'));
         document.getElementById('closeRechargeBtn').addEventListener('click', () => closeModal('rechargeOverlay'));
 
-        // 全局模态外部点击关闭
         document.querySelectorAll('.modal-overlay').forEach(modal => {
             modal.addEventListener('click', (e) => {
                 if (e.target === modal) closeModal(modal.id);
@@ -862,7 +835,6 @@
         });
     });
 
-    // 动态布局计算
     function calculateLayout() {
         const nav = document.querySelector('.navbar');
         const backBtns = document.querySelectorAll('.back-btn');
@@ -871,29 +843,23 @@
             const navHeight = nav.offsetHeight;
             const paddingValue = navHeight + 30 + 'px';
             
-            // 设置所有内容面板的padding
             document.querySelectorAll('.ranking-content, .changelog-content, .membership-content')
                   .forEach(panel => panel.style.paddingTop = paddingValue);
             
-            // 设置返回按钮垂直居中
             backBtns.forEach(btn => {
                 btn.style.top = `calc(${navHeight}px / 2 - 15px)`;
             });
         }
     }
 
-    // 窗口事件监听
     window.addEventListener('load', () => {
         calculateLayout();
-        // 初始化隐藏所有功能面板
         document.querySelectorAll('.ranking-content, .changelog-content, .membership-content')
               .forEach(panel => panel.classList.remove('active'));
     });
 
     window.addEventListener('resize', calculateLayout);
 </script>
-
-
 
 </body>
 </html>
