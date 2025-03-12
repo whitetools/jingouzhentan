@@ -6,11 +6,11 @@
     <title>支付结果 - 金狗侦探</title>
     <style>
         :root {
-            --primary: #7C3AED;
-            --surface: #FFFFFF;
-            --background: #F8FAFC;
-            --success: #27AE60;
-            --text-primary: #2D3748;
+            --primary: #6B7280;      /* 主色改为中性灰 */
+            --surface: #F3F4F6;       /* 表面色改为浅灰 */
+            --background: #E5E7EB;    /* 背景色改为中灰 */
+            --success: #4B5563;       /* 成功色改为深灰 */
+            --text-primary: #1F2937;  /* 主要文字颜色加深 */
         }
 
         * {
@@ -32,12 +32,13 @@
         .payment-card {
             background: var(--surface);
             border-radius: 24px;
-            box-shadow: 0 12px 32px rgba(124, 58, 237, 0.08);
+            box-shadow: 0 12px 32px rgba(107, 114, 128, 0.08); /* 调整阴影颜色 */
             padding: 2.5rem;
             width: 100%;
             max-width: 480px;
             position: relative;
             overflow: hidden;
+            border: 1px solid #D1D5DB;  /* 增加灰色边框 */
         }
 
         .brand-header {
@@ -52,8 +53,8 @@
             border-radius: 50%;
             object-fit: cover;
             margin: 0 auto 1.5rem;
-            border: 3px solid var(--primary);
-            box-shadow: 0 4px 16px rgba(124, 58, 237, 0.15);
+            border: 3px solid var(--primary);  /* 边框颜色同步修改 */
+            box-shadow: 0 4px 16px rgba(107, 114, 128, 0.15); /* 阴影颜色调整 */
         }
 
         .title-group h1 {
@@ -68,6 +69,7 @@
             background: #F9FAFB;
             border-radius: 16px;
             padding: 1.5rem;
+            border: 1px solid #E5E7EB;  /* 增加边框 */
         }
 
         .detail-item {
@@ -75,10 +77,15 @@
             justify-content: space-between;
             align-items: center;
             padding: 1rem 0;
+            border-bottom: 1px solid #F3F4F6;  /* 分割线颜色调整 */
+        }
+
+        .detail-item:last-child {
+            border-bottom: none;
         }
 
         .detail-label {
-            color: #718096;
+            color: #6B7280;  /* 标签文字颜色调整 */
             font-size: 0.95rem;
             flex: 0 0 100px;
         }
@@ -109,13 +116,14 @@
         }
 
         .primary-btn {
-            background: linear-gradient(135deg, var(--primary), #6B46C1);
+            background: linear-gradient(135deg, #6B7280, #4B5563); /* 按钮渐变改为灰色 */
             color: white;
         }
 
         .secondary-btn {
-            background: rgba(124, 58, 237, 0.1);
-            color: var(--primary);
+            background: rgba(107, 114, 128, 0.1);  /* 背景色调整 */
+            color: var(--text-primary);  /* 文字颜色同步 */
+            border: 1px solid #D1D5DB;  /* 增加边框 */
         }
 
         @media (max-width: 480px) {
@@ -173,19 +181,16 @@
         </div>
     </div>
 
+    <!-- JavaScript部分保持不变 -->
     <script>
         // 订单号时间解析函数
         function parseOrderTime(orderNo) {
             try {
-                // 验证订单号格式（至少包含14位数字）
                 if (!orderNo || orderNo.length < 14 || !/^\d+$/.test(orderNo)) {
                     return null;
                 }
 
-                // 提取时间部分（前14位）
                 const timeStr = orderNo.substring(0, 14);
-                
-                // 分解时间组成部分
                 const year = timeStr.substring(0, 4);
                 const month = timeStr.substring(4, 6);
                 const day = timeStr.substring(6, 8);
@@ -193,14 +198,12 @@
                 const minute = timeStr.substring(10, 12);
                 const second = timeStr.substring(12, 14);
 
-                // 创建日期对象（本地时间）
                 return new Date(`${year}-${month}-${day}T${hour}:${minute}:${second}`);
             } catch {
                 return null;
             }
         }
 
-        // 时间格式化函数
         function formatDateTime(date) {
             if (!(date instanceof Date) || isNaN(date)) return '--';
             
@@ -215,32 +218,26 @@
             }).format(date).replace(/\//g, '-');
         }
 
-        // 初始化支付信息
         function initPayment() {
             const params = new URLSearchParams(location.search);
             const orderNo = params.get('xddpay_order');
 
-            // 设置支付单号
             document.getElementById('xddOrder').textContent = orderNo || '--';
 
-            // 解析并显示时间
             const orderTime = orderNo ? parseOrderTime(orderNo) : null;
             document.getElementById('currentTime').textContent = 
                 orderTime ? formatDateTime(orderTime) : '--';
 
-            // 解析用户账号
             const subject = params.get('subject') ? 
                 decodeURIComponent(params.get('subject')) : '';
             const userId = subject.match(/用户:(\d+)/)?.[1] || '--';
             document.getElementById('userId').textContent = userId;
 
-            // 设置支付金额
             const amount = params.get('money');
             document.getElementById('amount').textContent = 
                 amount ? `¥ ${parseFloat(amount).toFixed(2)}` : '--';
         }
 
-        // 保存支付凭证功能
         function savePayment() {
             try {
                 const content = `【金狗侦探支付凭证】
@@ -267,10 +264,8 @@
             }
         }
 
-        // 初始化页面
         window.addEventListener('DOMContentLoaded', initPayment);
 
-        // 处理浏览器返回缓存
         window.addEventListener('pageshow', function(event) {
             if (event.persisted) {
                 initPayment();
