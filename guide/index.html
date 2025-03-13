@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>金狗侦探 | 使用指南</title>
+    <style>
+        :root {
+            --primary: #D1D5DB;
+            --secondary: #6B7280;
+            --light: #F9FAFB;
+            --dark: #1F2937;
+            --radius: 10px;
+            --border: #E5E7EB;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+
+        body {
+            background: var(--light);
+            min-height: 100vh;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, var(--primary), #E5E7EB);
+            color: var(--dark);
+            padding: 4rem 2rem;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.03);
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 20px;
+        }
+
+        .nav-menu {
+            background: white;
+            border-radius: var(--radius);
+            padding: 1rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            border: 1px solid var(--border);
+        }
+
+        .nav-btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            background: transparent;
+            color: var(--secondary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+        }
+
+        .nav-btn:hover {
+            background: rgba(209, 213, 219, 0.3);
+        }
+
+        .nav-btn.active {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            box-shadow: 0 2px 6px rgba(107, 114, 128, 0.2);
+        }
+
+        .content-section {
+            display: none;
+            max-width: 1200px;
+            margin: 0 auto 3rem;
+            padding: 0 20px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.4s ease;
+        }
+
+        .content-section.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .guide-card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+            border: 1px solid var(--border);
+        }
+
+        .guide-card .nav-btn {
+            min-height: 140px;
+            padding: 25px 15px 15px;
+            transition: all 0.3s ease;
+            flex-direction: column;
+            text-align: center;
+            position: relative;
+            top: 0;
+            cursor: pointer;
+        }
+
+        .guide-card .nav-btn:hover {
+            top: 6px;
+            transform: translateY(4px);
+        }
+
+        .guide-card .nav-btn > div {
+            font-size: 2rem;
+            margin-top: 15px;
+            transition: margin 0.3s;
+        }
+
+        .guide-card h3 {
+            margin: 18px 0 10px;
+            font-size: 1.2rem;
+        }
+
+        .guide-card p {
+            font-size: 0.9rem;
+            color: var(--secondary);
+            line-height: 1.5;
+        }
+
+        .step-list {
+            list-style: none;
+            counter-reset: step-counter;
+            margin: 2rem 0;
+        }
+
+        .step-list li {
+            counter-increment: step-counter;
+            margin-bottom: 1.8rem;
+            padding-left: 3.5rem;
+            position: relative;
+            line-height: 1.7;
+            color: var(--secondary);
+        }
+
+        .step-list li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: -5px;
+            width: 32px;
+            height: 32px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .video-container {
+            border-radius: var(--radius);
+            overflow: hidden;
+            margin: 2.5rem 0;
+            border: 1px solid var(--border);
+        }
+
+        video {
+            width: 100%;
+            border-radius: var(--radius);
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: 3rem 1.5rem;
+            }
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .nav-menu {
+                flex-direction: column;
+            }
+            .nav-btn {
+                justify-content: center;
+                width: 100%;
+            }
+            .step-list li {
+                padding-left: 2.5rem;
+            }
+            .guide-card .nav-btn {
+                min-height: 110px;
+                padding: 20px 10px 10px;
+            }
+            .guide-card h3 {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="hero">
+        <h1>软件使用指南</h1>
+        <p>简洁高效的操作指引</p>
+    </header>
+
+    <div class="nav-container">
+        <nav class="nav-menu">
+            <button class="nav-btn active" data-section="home">🏠 首页</button>
+            <button class="nav-btn" data-section="register">📝 注册指南</button>
+            <button class="nav-btn" data-section="membership">💳 会员充值</button>
+            <button class="nav-btn" data-section="promotion">🎉 推广奖励</button>
+            <button class="nav-btn" data-section="network">🌐 网络设置</button>
+        </nav>
+    </div>
+
+    <section id="home" class="content-section active">
+        <div class="guide-card">
+            <h2>功能导航</h2>
+            <div style="display: grid; gap: 1.5rem; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
+                <div class="nav-btn" data-section="register">
+                    <div>📝</div>
+                    <h3>注册指南</h3>
+                    <p>新用户快速入门</p>
+                </div>
+                <div class="nav-btn" data-section="membership">
+                    <div>💳</div>
+                    <h3>会员服务</h3>
+                    <p>解锁高级功能</p>
+                </div>
+                <div class="nav-btn" data-section="promotion">
+                    <div>🎉</div>
+                    <h3>推广奖励</h3>
+                    <p>邀请好友得福利</p>
+                </div>
+                <div class="nav-btn" data-section="network">
+                    <div>🌐</div>
+                    <h3>网络配置</h3>
+                    <p>优化连接设置</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="register" class="content-section">
+        <div class="guide-card">
+            <h2>注册流程说明</h2>
+            <ol class="step-list">
+                <li>新用户可免费体验一周，当试用期结束后</li>
+                <li>点击下方注册按钮，根据提示可完成注册</li>
+                <li>注册完成后，您的手机号就是您的邀请码</li>
+                <li>用户使用你邀请码充值，会为你提供奖励</li>
+            </ol>
+            <div class="video-container">
+                <video controls>
+                    <source src="zhuce.mp4" type="video/mp4">
+                    您的浏览器不支持视频播放
+                </video>
+            </div>
+        </div>
+    </section>
+
+    <section id="membership" class="content-section">
+        <div class="guide-card">
+            <h2>会员服务指南</h2>
+            <ol class="step-list">
+                <li>当您会员到期后，可点击下方充值按钮</li>
+                <li>选择要充值的时长，输入要充值的账号</li>
+                <li>如有邀请码，输入邀请码可以享受折扣</li>
+                <li>也可以输入系统邀请码，jingouzhentan</li>
+            </ol>
+            <div class="video-container">
+                <video controls>
+                    <source src="chongzhi.mp4" type="video/mp4">
+                    您的浏览器不支持视频播放
+                </video>
+            </div>
+        </div>
+    </section>
+
+    <section id="promotion" class="content-section">
+        <div class="guide-card">
+            <h2>推广奖励计划</h2>
+            <ol class="step-list">
+                <li>每当好友使用您的邀请码进行充值您可以获得积分奖励</li>
+                <li>月费充值奖励1积分，年费奖励10积分，1积分=100元</li>
+                <li>可在设置中的申请提现中绑定您的支付宝或微信收款码</li>
+                <li>每满5积分可申请提现</li>
+            </ol>
+            <div class="video-container">
+                <video controls>
+                    <source src="tuiguang.mp4" type="video/mp4">
+                    您的浏览器不支持视频播放
+                </video>
+            </div>
+        </div>
+    </section>
+
+    <section id="network" class="content-section">
+        <div class="guide-card">
+            <h2>网络配置教程</h2>
+            <ol class="step-list">
+                <li>由于该软件依赖于外网环境才能使用，使用前请先进行网络配置，建议将您的机场软件更改为全局代理</li>
+                <li>更改全局后，进入功能界面后如果软件依然没办法正常加载，请点击右上角设置，进行手动配置</li>
+                <li>在软件代理这栏点击获取，然后再点击设置，如果提示获取失败，可自行填写您的代理IP和端口</li>
+                <li>一般都能在机场软件的设置中找到，如果找不到请联系您的机场软件售后进行咨询</li>
+            </ol>
+            <div class="video-container">
+                <video controls>
+                    <source src="wangluo.mp4" type="video/mp4">
+                    您的浏览器不支持视频播放
+                </video>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 统一事件监听
+            document.body.addEventListener('click', (event) => {
+                const target = event.target.closest('.nav-btn');
+                if (target && target.dataset.section) {
+                    showSection(target.dataset.section);
+                }
+            });
+        });
+
+        function showSection(sectionId) {
+            // 更新导航状态
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.section === sectionId);
+            });
+
+            // 更新内容显示
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.toggle('active', section.id === sectionId);
+            });
+
+            // 平滑滚动到顶部
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+    </script>
+</body>
+</html>
