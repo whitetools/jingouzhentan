@@ -422,19 +422,25 @@
         background-clip: text;
     }
 
-    .nav-links a.active::after {
-        content: '';
-        position: absolute;
-        bottom: -2px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: auto;
-        min-width: 60%;
-        height: 2px;
-        background: linear-gradient(135deg, var(--primary), #6366F1);
-        animation: underlineGrow 0.3s ease-out;
+    .nav-brand {
+        width: 100%;
+        justify-content: space-between;
     }
 
+    .nav-logo {
+        font-size: 1.2rem;
+    }
+
+    .nav-avatar {
+        width: 36px;
+        height: 36px;
+    }
+
+    .back-btn {
+        left: 12px;
+        top: 12px;
+    }
+}
     @keyframes underlineGrow {
         from { width: 0 }
         to { width: auto }
@@ -487,43 +493,57 @@
             opacity: 0.8;
         }
 
-        @media (max-width: 480px) {
-            .close-btn {
-                top: 8px;
-                right: 8px;
-                font-size: 1.5rem;
-                width: 36px;
-                height: 36px;
-            }
-            .nav-links {
-                order: 3;
-                width: 100%;
-                margin: 0.8rem 0 0;
-                padding: 0.5rem 0;
-                display: flex;
-                justify-content: center;
-                flex-wrap: wrap;
-                gap: 0.8rem;
-            }
+ @media (max-width: 480px) {
+    .nav-links {
+        order: 3;
+        width: 100%;
+        margin: 0.8rem 0 0;
+        padding: 0.5rem 0;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 0.8rem;
+    }
 
-            .nav-links a {
-                flex: 0 0 auto;
-                margin: 0 0.8rem !important;
-                padding: 4px 0;
-                font-size: 0.9rem;
-                white-space: nowrap;
-                position: relative;
-            }
+    .nav-links a {
+        flex: 0 0 auto;
+        margin: 0 0.8rem !important;
+        padding: 4px 0;
+        font-size: 0.9rem;
+        white-space: nowrap;
+        position: relative;
+    }
 
-            .nav-links a.active::after {
-                content: '';
-                position: absolute;
-                bottom: 0;
-                left: 0;
-                width: 100%;
-                height: 2px;
-                background: linear-gradient(135deg, var(--primary), #6366F1);
-            }
+    .nav-links a.active {
+        background: linear-gradient(135deg, var(--primary), #6366F1);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .nav-logo {
+        font-size: 1.2rem;
+    }
+
+    .nav-brand {
+        gap: 0.6rem;
+    }
+
+    .nav-avatar {
+        width: 36px;
+        height: 36px;
+    }
+
+    .nav-links::-webkit-scrollbar {
+        display: none;
+    }
+
+    .software-showcase {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+
 
             .nav-logo {
                 font-size: 1.2rem;
@@ -1051,3 +1071,4 @@
 </script>
 </body>
 </html>
+
