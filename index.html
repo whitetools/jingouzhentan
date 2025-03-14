@@ -67,7 +67,7 @@
         .nav-links a {
             color: var(--text);
             text-decoration: none;
-            margin-left: 2rem;
+            margin-left: 1.5rem;
             cursor: pointer;
             transition: opacity 0.3s;
         }
@@ -101,6 +101,55 @@
             font-weight: 700;
             color: var(--text);
             margin-bottom: 2rem;
+        }
+
+        /* 新增功能亮点样式 */
+        .introduction-content {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            min-height: 100vh;
+            padding: calc(72px + 2rem) 5% 2rem;
+            background: var(--light);
+            z-index: 2;
+        }
+
+        .introduction-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .software-showcase {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            padding: 2rem 0;
+        }
+
+        .software-screenshot {
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .software-screenshot:hover {
+            transform: scale(1.02);
+        }
+
+        .feature-description {
+            line-height: 1.8;
+            color: #4B5563;
+        }
+
+        .feature-description h3 {
+            color: var(--primary);
+            margin-bottom: 1.2rem;
         }
 
         .changelog-content,
@@ -222,11 +271,12 @@
         }
 
         .hero {
-            background: linear-gradient(45deg, #F8FAFC, #F1F5F9);
+            background: linear-gradient(45deg, #D1D5DB, #E5E7EB);
             padding: 6rem 5% 4rem;
             color: var(--text);
             text-align: center;
-            border-bottom: 1px solid #E5E7EB;
+            border-bottom: 1px solid #CBD5E1;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
 
         .features {
@@ -342,16 +392,73 @@
             padding: 10px;
         }
 
-        @media (min-width: 768px) {
-            .modal-content {
-                padding: 2rem;
-            }
-            .qrcode-img {
-                width: 200px;
-                height: 200px;
-                padding: 15px;
-            }
-        }
+@media (max-width: 768px) {
+    .nav-links {
+        order: 3;
+        width: 100%;
+        margin: 0.8rem 0 0;
+        padding: 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.8rem;
+        justify-content: space-between;
+    }
+
+    .nav-links a {
+        flex: 0 0 calc(50% - 0.4rem);
+        margin: 0 !important;
+        padding: 4px 0;
+        font-size: 0.9rem;
+        white-space: nowrap;
+        text-align: center;
+        position: relative;
+        display: inline-block;
+    }
+
+    .nav-links a.active {
+        background: linear-gradient(135deg, var(--primary), #6366F1);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .nav-links a.active::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: auto;
+        min-width: 60%;
+        height: 2px;
+        background: linear-gradient(135deg, var(--primary), #6366F1);
+        animation: underlineGrow 0.3s ease-out;
+    }
+
+    @keyframes underlineGrow {
+        from { width: 0 }
+        to { width: auto }
+    }
+
+    .nav-brand {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .nav-logo {
+        font-size: 1.2rem;
+    }
+
+    .nav-avatar {
+        width: 36px;
+        height: 36px;
+    }
+
+    .back-btn {
+        left: 12px;
+        top: 12px;
+    }
+}
 
         @media (min-width: 1200px) {
             .modal-content {
@@ -388,9 +495,6 @@
                 width: 36px;
                 height: 36px;
             }
-        }
-
-        @media (max-width: 768px) {
             .nav-links {
                 order: 3;
                 width: 100%;
@@ -433,6 +537,10 @@
             }
             .nav-links::-webkit-scrollbar {
                 display: none;
+            }
+            .software-showcase {
+                grid-template-columns: 1fr;
+                gap: 2rem;
             }
         }
 
@@ -506,46 +614,19 @@
         }
     </style>
 
-    <!-- 充值提示弹窗 -->
-    <div class="modal-overlay" id="rechargeOverlay">
-        <div class="modal-content download-modal">
-            <button class="close-btn" id="closeRechargeBtn">&times;</button>
-            <div style="text-align: center; padding: 20px;">
-                <svg style="width: 60px; height: 60px; color: #4ECDC4;" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                </svg>
-                <h3 style="color: var(--text); margin: 1rem 0;">请于客户端中进行充值</h3>
-                <p style="color: #666;">打开已下载的客户端，进入充值页面完成支付</p>
-            </div>
+<div class="modal-overlay" id="rechargeOverlay">
+    <div class="modal-content download-modal">
+        <button class="close-btn" id="closeRechargeBtn">&times;</button>
+        <div style="text-align: center; padding: 20px;">
+            <svg style="width: 60px; height: 60px; color: #4ECDC4;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            <h3 style="color: var(--text); margin: 1rem 0;">请于客户端中进行充值</h3>
+            <p style="color: #666;">打开已下载的客户端，进入充值页面完成支付</p>
         </div>
     </div>
-    <style>
-        /* 新增顶部横幅背景色修改 */
-        .hero {
-            background: linear-gradient(45deg, #E5E8EC, #EDF2F7);  /* 加深背景色 */
-            border-bottom: 1px solid #D1D5DB;  /* 加深边框颜色 */
-            box-shadow: 0 4px 12px rgba(0,0,0,0.06);  /* 增加柔和阴影 */
-        }
+</div>
 
-        /* 保持其他浅色主题设置不变 */
-    </style>
-    <style>
-        /* 新增更深的背景渐变 */
-        .hero {
-            background: linear-gradient(45deg, #D1D5DB, #E5E7EB);
-            /* 调整为更浅的边框和阴影 */
-            border-bottom: 1px solid #CBD5E1;  /* 比原#9CA3AF浅40% */
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);  /* 透明度从0.08降为0.05 */
-        }
-
-        /* 保持文字对比度 */
-        .hero h1 {
-            color: #1F2937;  /* 文字颜色加深 */
-        }
-        .hero p {
-            color: #4B5563;  /* 副标题加深 */
-        }
-    </style>
 </head>
 <body>
     <div class="page-container">
@@ -555,6 +636,8 @@
                 <div class="nav-logo">Solana Tools - 金狗侦探</div>
             </div>
             <div class="nav-links">
+                <a href="https://whitetools.github.io/jingouzhentan/guide/" >使用指南</a>
+                <a id="introduction-link" href="javascript:void(0);">功能亮点</a>
                 <a id="changelog-link" href="javascript:void(0);">更新日志</a>
                 <a id="ranking-link" href="javascript:void(0);">推广返佣</a>
                 <a id="membership-link" href="javascript:void(0);">成为会员</a>
@@ -577,7 +660,6 @@
                         <p>账号：129*****888</p>
                     </div>
                 </li>
-
                 <li class="update-item">
                     <div class="update-date">申请时间：2025-03-06 15:13</div>
                     <div class="update-details">
@@ -586,7 +668,6 @@
                         <p>账号：102*****121</p>
                     </div>
                 </li>
-
                 <li class="update-item">
                     <div class="update-date">申请时间：2025-03-03 11:40</div>
                     <div class="update-details">
@@ -595,7 +676,6 @@
                         <p>账号：152*****017</p>
                     </div>
                 </li>
-
             </ul>
         </section>
 
@@ -605,7 +685,7 @@
                 <h2>版本更新记录</h2>
                 <p>我们将持续优化您的链上分析体验</p>
             </div>
-              <ul class="update-list">
+            <ul class="update-list">
                 <li class="update-item">
                     <div class="update-version">v1.0.0 - 正式版本</div>
                     <div class="update-date">2025年3月1日</div>
@@ -651,7 +731,6 @@
                     <p>独立验证系统</p>
                     <button class="download-btn" style="margin-top: 1rem;">立即体验</button>
                 </div>
-                
                 <div class="feature-card" style="text-align: center;">
                     <h3>月费会员</h3>
                     <div style="font-size: 2rem; color: var(--primary); margin: 1rem 0;">￥299</div>
@@ -665,7 +744,6 @@
                         立即购买
                     </button>
                 </div>
-
                 <div class="feature-card" style="text-align: center;">
                     <h3>年费会员</h3>
                     <div style="font-size: 2rem; color: var(--primary); margin: 1rem 0;">￥2599</div>
@@ -682,15 +760,110 @@
             </div>
         </section>
 
+        <!-- 新增功能亮点板块 -->
+        <section class="introduction-content">
+            <button class="back-btn" onclick="toggleIntroduction()">← 返回首页</button>
+            <div class="update-header">
+                <h2>核心功能详解</h2>
+                <p>专业工具助力您的链上探索</p>
+            </div>
+            <div class="software-showcase">
+                <img src="gongneng1.png" alt="代币分析" class="software-screenshot">
+                <div class="feature-description">
+                    <h3>智能化链上分析</h3>
+                    <p>一键分析合约中的所有的重要信息：</p>
+                    <ul>
+                        <li>开发者历史</li>
+                        <li>仿盘追踪</li>
+                        <li>DEXscreener付款记录</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="software-showcase" style="margin-top: 2rem;">
+                <div class="feature-description">
+                    <h3>DEX付款扫描</h3>
+                    <p>一键扫描链上最新的DEX广告信息：</p>
+                    <ul>
+                        <li>付款地址</li>
+                        <li>付款金额</li>
+                        <li>审核状态</li>
+                    </ul>
+                </div>
+                <img src="gongneng2.png" alt="付款扫描" class="software-screenshot">
+            </div>
+
+            <div class="software-showcase">
+                <img src="gongneng3.png" alt="热度扫描" class="software-screenshot">
+                <div class="feature-description">
+                    <h3>社区热度扫描</h3>
+                    <p>一键扫描当前社区最热门代币：</p>
+                    <ul>
+                        <li>社区推广次数</li>
+                        <li>链上热度</li>
+                        <li>首次推送标记</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="software-showcase" style="margin-top: 2rem;">
+                <div class="feature-description">
+                    <h3>PUMP内盘扫描</h3>
+                    <p>一键扫描链上即将打满的新发行代币：</p>
+                    <ul>
+                        <li>代币发射进度</li>
+                        <li>开发者持仓信息</li>
+                        <li>最新交易状态</li>
+                    </ul>
+                </div>
+                <img src="gongneng4.png" alt="内盘扫描" class="software-screenshot">
+            </div>
+            <div class="software-showcase">
+                <img src="gongneng5.png" alt="聪明钱榜" class="software-screenshot">
+                <div class="feature-description">
+                    <h3>聪明钱热度榜</h3>
+                    <p>一键扫描当前聪明钱都在购买哪些代币：</p>
+                    <ul>
+                        <li>聪明钱数量</li>
+                        <li>聪明钱交易次数</li>
+                        <li>聪明钱购买最多的代币</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="software-showcase" style="margin-top: 2rem;">
+                <div class="feature-description">
+                    <h3>代币模拟交易</h3>
+                    <p>模拟交易并监控你认为有价值的代币：</p>
+                    <ul>
+                        <li>声音提醒</li>
+                        <li>设定倍数</li>
+                        <li>记录监控信息</li>
+                    </ul>
+                </div>
+                <img src="gongneng6.png" alt="模拟交易" class="software-screenshot">
+            </div>
+            <div class="software-showcase">
+                <img src="gongneng7.png" alt="综合工具" class="software-screenshot">
+                <div class="feature-description">
+                   <h3>链上综合工具</h3>
+                    <p>一键直达Solana扫链快捷的方式：</p>
+                    <ul>
+                        <li>机器人推荐</li>
+                        <li>热门扫链网站快捷方式</li>
+                        <li>钓鱼网站分析</li>
+                    </ul>
+                </div>
+            </div>
+
+ 
+        </section>
+
         <div class="main-content">
-    <section class="hero">
-        <h1>科学工具是第一生产力</h1>
-        <p>好的工具能让你事半功倍，专为Solana扫链打造的智能工具</p>
-        <button class="download-btn">立即下载</button>
-    </section>
+            <section class="hero">
+                <h1>科学工具是第一生产力</h1>
+                <p>好的工具能让你事半功倍，专为Solana扫链打造的智能工具</p>
+                <button class="download-btn">立即下载</button>
+            </section>
             <div class="core-features">
                 <h2 class="core-title">核心功能</h2>
-                
                 <section class="features">
                     <div class="feature-card">
                         <h3>智能合约解析</h3>
@@ -705,7 +878,6 @@
                         <p>实时捕捉热门合约，智能潜力发现</p>
                     </div>
                 </section>
-
                 <section class="features">
                     <div class="feature-card">
                         <h3>实时数据流</h3>
@@ -742,6 +914,7 @@
             <p style="color: #666; margin-top: 1rem;">打开微信扫一扫</p>
         </div>
     </div>
+
     <div class="modal-overlay" id="downloadOverlay">
         <div class="modal-content download-modal">
             <button class="close-btn" id="closeDownloadBtn">&times;</button>
@@ -756,19 +929,21 @@
     </div>
 
 <script>
-    // 交互逻辑保持不变
+    // 文本映射表
     const textMap = {
+        'introduction-link': '功能亮点',
         'ranking-link': '推广返佣',
         'changelog-link': '更新日志',
         'membership-link': '成为会员',
         'wechat-link': '联系我们'
     };
 
+    // 面板切换函数
     function togglePanel(targetClass, linkId) {
         const main = document.querySelector('.main-content');
         const panel = document.querySelector(targetClass);
         const footer = document.querySelector('footer');
-        const allPanels = document.querySelectorAll('.ranking-content, .changelog-content, .membership-content');
+        const allPanels = document.querySelectorAll('.ranking-content, .changelog-content, .membership-content, .introduction-content');
         const navLinks = document.querySelectorAll('.nav-links a');
 
         if (panel.classList.contains('active')) {
@@ -776,7 +951,7 @@
             panel.classList.remove('active');
             footer.classList.remove('hidden');
             navLinks.forEach(link => {
-                link.textContent = textMap[link.id];
+                link.textContent = textMap[link.id] || link.textContent;
                 link.classList.remove('active');
             });
         } else {
@@ -785,29 +960,60 @@
             allPanels.forEach(p => p.classList.remove('active'));
             panel.classList.add('active');
             navLinks.forEach(link => {
-                link.textContent = link.id === linkId ? '返回首页' : textMap[link.id];
+                link.textContent = link.id === linkId ? '返回首页' : textMap[link.id] || link.textContent;
                 link.classList.toggle('active', link.id === linkId);
             });
         }
         calculateLayout();
     }
 
+    // 各面板切换函数
     function toggleRanking() { togglePanel('.ranking-content', 'ranking-link'); }
     function toggleChangelog() { togglePanel('.changelog-content', 'changelog-link'); }
     function toggleMembership() { togglePanel('.membership-content', 'membership-link'); }
+    function toggleIntroduction() { togglePanel('.introduction-content', 'introduction-link'); }
 
-    function closeModal(modalId) {
-        document.getElementById(modalId).style.display = 'none';
-        document.body.style.overflow = 'auto';
+    // 布局计算
+    function calculateLayout() {
+        const nav = document.querySelector('.navbar');
+        const backBtns = document.querySelectorAll('.back-btn');
+        if (nav && backBtns.length > 0) {
+            const navHeight = nav.offsetHeight;
+            const paddingValue = navHeight + 30 + 'px';
+            document.querySelectorAll('.ranking-content, .changelog-content, .membership-content, .introduction-content')
+                  .forEach(panel => panel.style.paddingTop = paddingValue);
+            backBtns.forEach(btn => btn.style.top = `calc(${navHeight}px / 2 - 15px)`);
+        }
     }
 
-    document.addEventListener('DOMContentLoaded', () => {
+    // 初始化事件
+    document.addEventListener('DOMContentLoaded', function() {
+        // 下载按钮绑定
+        document.querySelectorAll('.download-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.getElementById('downloadOverlay').style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        // 购买按钮绑定
+        document.querySelectorAll('.purchase-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.getElementById('rechargeOverlay').style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        // 导航交互
         document.querySelectorAll('.nav-links a').forEach(link => {
             link.addEventListener('click', function() {
                 switch(this.id) {
                     case 'ranking-link': toggleRanking(); break;
                     case 'changelog-link': toggleChangelog(); break;
                     case 'membership-link': toggleMembership(); break;
+                    case 'introduction-link': toggleIntroduction(); break;
                     case 'wechat-link':
                         document.getElementById('modalOverlay').style.display = 'flex';
                         document.body.style.overflow = 'hidden';
@@ -816,24 +1022,16 @@
             });
         });
 
-        document.querySelectorAll('.download-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.getElementById('downloadOverlay').style.display = 'flex';
-                document.body.style.overflow = 'hidden';
-            });
-        });
-
-        document.querySelectorAll('.purchase-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.getElementById('rechargeOverlay').style.display = 'flex';
-                document.body.style.overflow = 'hidden';
-            });
-        });
-
+        // 关闭按钮绑定
+        const closeModal = (modalId) => {
+            document.getElementById(modalId).style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
         document.getElementById('closeWechatBtn').addEventListener('click', () => closeModal('modalOverlay'));
         document.getElementById('closeDownloadBtn').addEventListener('click', () => closeModal('downloadOverlay'));
         document.getElementById('closeRechargeBtn').addEventListener('click', () => closeModal('rechargeOverlay'));
 
+        // 蒙层点击关闭
         document.querySelectorAll('.modal-overlay').forEach(modal => {
             modal.addEventListener('click', (e) => {
                 if (e.target === modal) closeModal(modal.id);
@@ -841,31 +1039,13 @@
         });
     });
 
-    function calculateLayout() {
-        const nav = document.querySelector('.navbar');
-        const backBtns = document.querySelectorAll('.back-btn');
-        
-        if (nav && backBtns.length > 0) {
-            const navHeight = nav.offsetHeight;
-            const paddingValue = navHeight + 30 + 'px';
-            
-            document.querySelectorAll('.ranking-content, .changelog-content, .membership-content')
-                  .forEach(panel => panel.style.paddingTop = paddingValue);
-            
-            backBtns.forEach(btn => {
-                btn.style.top = `calc(${navHeight}px / 2 - 15px)`;
-            });
-        }
-    }
-
+    // 窗口事件
     window.addEventListener('load', () => {
         calculateLayout();
-        document.querySelectorAll('.ranking-content, .changelog-content, .membership-content')
+        document.querySelectorAll('.ranking-content, .changelog-content, .membership-content, .introduction-content')
               .forEach(panel => panel.classList.remove('active'));
     });
-
     window.addEventListener('resize', calculateLayout);
 </script>
-
 </body>
 </html>
