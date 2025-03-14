@@ -502,22 +502,24 @@
         margin: 1rem 0 0;
         padding: 0 5%;
         display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 10px;
+        grid-template-columns: repeat(2, minmax(45%, 1fr)); /* 修改这里 */
+        gap: 8px;
         justify-content: center;
+        box-sizing: border-box; /* 新增 */
     }
 
     .nav-links a {
-        flex: 0 0 100%;
         margin: 0 !important;
-        padding: 12px 10px;
-        font-size: 0.9rem;
+        padding: 10px 5px; /* 调整这里 */
+        font-size: 0.85rem; /* 调整这里 */
         text-align: center;
         white-space: nowrap;
         position: relative;
         border-radius: 8px;
         width: 100%;
         box-sizing: border-box;
+        overflow: hidden; /* 新增 */
+        text-overflow: ellipsis; /* 新增 */
     }
 
     .nav-links a.active::after {
@@ -632,7 +634,18 @@
             outline: none;
             box-shadow: 0 0 0 3px rgba(99,102,241,0.2) !important;
         }
-
+  
+  @media (max-width: 375px) {
+        .nav-links {
+            padding: 0 3%;
+            gap: 6px;
+        }
+        .nav-links a {
+            font-size: 0.8rem;
+            padding: 8px 3px;
+        }
+    }
+}
 
     </style>
 
