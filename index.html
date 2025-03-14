@@ -393,73 +393,95 @@
         }
 
 @media (max-width: 768px) {
-    .nav-links {
-        order: 3;
-        width: 100%;
-        margin: 0.8rem 0 0;
-        padding: 0;
-        display: flex;
+    .navbar {
         flex-wrap: wrap;
-        gap: 0.8rem;
-        justify-content: space-between;
+        padding: 1rem 5%;
+        justify-content: center;
+        position: relative;
     }
 
-    .nav-links a {
-        flex: 0 0 calc(50% - 0.4rem);
-        margin: 0 !important;
-        padding: 4px 0;
-        font-size: 0.9rem;
-        white-space: nowrap;
+    /* 隐藏头像 + 标题居中 */
+    .nav-brand {
+        width: 100%;
+        justify-content: center !important;
+        padding: 0;
+        order: 1;
+    }
+    .nav-avatar {
+        display: none !important;
+    }
+    .nav-logo {
         text-align: center;
-        position: relative;
-        display: inline-block;
+        width: 100%;
+        font-size: 1.2rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        padding: 0 20px;
+        margin: 0;
+    }
+
+    /* 三列布局核心 */
+    .nav-links {
+        order: 2;
+        width: 100%;
+        margin-top: 1.5rem;
+        padding: 0;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.8rem;
+    }
+
+    /* 完全保持原有链接样式 */
+    .nav-links a {
+        font-size: 0.85rem;
+        text-align: center;
+        padding: 0;
+        color: var(--text);
+        text-decoration: none;
+        background: none;
+        border: none;
+        line-height: 1.4;
     }
 
     .nav-links a.active {
-        background: linear-gradient(135deg, var(--primary), #6366F1);
+        background: none;
+        background-image: linear-gradient(135deg, var(--primary), #6366F1);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
     }
 
-    .nav-links a.active::after {
-        display: none; /* 新增这行代码 */
-        content: '';
-        position: absolute;
-        bottom: -2px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: auto;
-        min-width: 60%;
-        height: 2px;
-        background: linear-gradient(135deg, var(--primary), #6366F1);
-        animation: underlineGrow 0.3s ease-out;
-    }
-
-    @keyframes underlineGrow {
-        from { width: 0 }
-        to { width: auto }
-    }
-
-    .nav-brand {
-        width: 100%;
-        justify-content: space-between;
-    }
-
-    .nav-logo {
-        font-size: 1.2rem;
-    }
-
-    .nav-avatar {
-        width: 36px;
-        height: 36px;
-    }
-
+    /* 返回按钮定位 */
     .back-btn {
-        left: 12px;
-        top: 12px;
+        position: fixed;
+        left: 5%;
+        top: 1.2rem;
+        padding: 8px 16px;
+        font-size: 0.9rem;
+        background: linear-gradient(135deg, var(--primary), #6366F1);
+        color: white;
+        z-index: 100;
+    }
+
+    @media (max-width: 480px) {
+        .nav-logo {
+            font-size: 1.1rem;
+            padding: 0 10px;
+        }
+        
+        .nav-links a {
+            font-size: 0.85rem;
+        }
+        
+        .back-btn {
+            padding: 8px 16px;
+            font-size: 0.9rem;
+        }
     }
 }
+
+
 
         @media (min-width: 1200px) {
             .modal-content {
@@ -488,63 +510,57 @@
             opacity: 0.8;
         }
 
-        @media (max-width: 480px) {
-            .close-btn {
-                top: 8px;
-                right: 8px;
-                font-size: 1.5rem;
-                width: 36px;
-                height: 36px;
-            }
-            .nav-links {
-                order: 3;
-                width: 100%;
-                margin: 0.8rem 0 0;
-                padding: 0.5rem 0;
-                display: flex;
-                justify-content: center;
-                flex-wrap: wrap;
-                gap: 0.8rem;
-            }
+@media (max-width: 480px) {
+    .navbar {
+        padding: 0.8rem 3%;
+        min-height: 60px;
+    }
 
-            .nav-links a {
-                flex: 0 0 auto;
-                margin: 0 0.8rem !important;
-                padding: 4px 0;
-                font-size: 0.9rem;
-                white-space: nowrap;
-                position: relative;
-            }
+    /* 标题优化 */
+    .nav-logo {
+        font-size: 1.15rem !important;
+        padding: 0 15px !important;
+        max-width: 90%;
+        letter-spacing: -0.5px;
+    }
 
-            .nav-links a.active::after {
-               display: none; /* 新增这行代码 */
-                content: '';
-                position: absolute;
-                bottom: 0;
-                left: 0;
-                width: 100%;
-                height: 2px;
-                background: linear-gradient(135deg, var(--primary), #6366F1);
-            }
+    /* 三列布局微调 */
+    .nav-links {
+        gap: 0.6rem;
+        margin-top: 1.2rem;
+    }
 
-            .nav-logo {
-                font-size: 1.2rem;
-            }
-            .nav-brand {
-                gap: 0.6rem;
-            }
-            .nav-avatar {
-                width: 36px;
-                height: 36px;
-            }
-            .nav-links::-webkit-scrollbar {
-                display: none;
-            }
-            .software-showcase {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-        }
+    .nav-links a {
+        font-size: 0.78rem;
+        line-height: 1.35;
+        padding: 0 2px !important;
+        overflow: visible;
+    }
+
+    /* 保持激活状态原始样式 */
+    .nav-links a.active {
+        background-image: linear-gradient(135deg, var(--primary), #6366F1);
+        -webkit-background-clip: text;
+        background-clip: text;
+    }
+
+    /* 返回按钮定位 */
+    .back-btn {
+        left: 3%;
+        top: 0.9rem;
+        padding: 7px 14px;
+        font-size: 0.85rem;
+    }
+
+    /* 内容区块适配 */
+    .core-features {
+        margin: 1.5rem 0;
+    }
+
+    .feature-card {
+        padding: 1.2rem;
+    }
+}
 
         .purchase-btn {
             border: none !important;
@@ -1054,3 +1070,4 @@
 </body>
 </html>
 
+帮我修复这段HTML代码，在手机端导航栏变成了单行单列，而非三行双列显示，不要改动UI和功能，修改后并且不要破坏电脑端的导航栏布局
