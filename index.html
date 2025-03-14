@@ -502,24 +502,25 @@
         margin: 1rem 0 0;
         padding: 0 5%;
         display: grid;
-        grid-template-columns: repeat(2, minmax(45%, 1fr)); /* 修改这里 */
+        grid-template-columns: repeat(2, 1fr); /* 保持两列布局 */
         gap: 8px;
-        justify-content: center;
-        box-sizing: border-box; /* 新增 */
+        justify-content: start; /* 改为左对齐 */
     }
 
     .nav-links a {
         margin: 0 !important;
-        padding: 10px 5px; /* 调整这里 */
-        font-size: 0.85rem; /* 调整这里 */
-        text-align: center;
-        white-space: nowrap;
-        position: relative;
-        border-radius: 8px;
+        padding: 8px 5px;
+        font-size: 0.82rem; /* 略微减小字号 */
+        text-align: left; /* 文字左对齐 */
+        white-space: normal; /* 允许换行 */
+        word-break: keep-all; /* 保持词组不换行 */
+        line-height: 1.3;
+        border-radius: 6px;
         width: 100%;
         box-sizing: border-box;
-        overflow: hidden; /* 新增 */
-        text-overflow: ellipsis; /* 新增 */
+        /* 移除省略号相关属性 */
+        overflow: visible;
+        text-overflow: clip;
     }
 
     .nav-links a.active::after {
