@@ -495,55 +495,66 @@
                 width: 36px;
                 height: 36px;
             }
-            .nav-links {
-                order: 3;
-                width: 100%;
-                margin: 0.8rem 0 0;
-                padding: 0.5rem 0;
-                display: flex;
-                justify-content: center;
-                flex-wrap: wrap;
-                gap: 0.8rem;
-            }
+    .nav-links {
+        order: 3;
+        width: 100%;
+        margin: 0.8rem 0 0;
+        padding: 0;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+    }
 
-            .nav-links a {
-                flex: 0 0 auto;
-                margin: 0 0.8rem !important;
-                padding: 4px 0;
-                font-size: 0.9rem;
-                white-space: nowrap;
-                position: relative;
-            }
+    .nav-links a {
+        margin: 0 !important;
+        padding: 10px 0;
+        font-size: 0.9rem;
+        text-align: center;
+        background: var(--secondary);
+        border-radius: 8px;
+        white-space: nowrap;
+        transition: all 0.2s ease;
+    }
 
-            .nav-links a.active::after {
-                content: '';
-                position: absolute;
-                bottom: 0;
-                left: 0;
-                width: 100%;
-                height: 2px;
-                background: linear-gradient(135deg, var(--primary), #6366F1);
-            }
+    .nav-links a.active::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: auto;
+        min-width: 60%;
+        height: 2px;
+        background: linear-gradient(135deg, var(--primary), #6366F1);
+        animation: underlineGrow 0.3s ease-out;
+    }
 
-            .nav-logo {
-                font-size: 1.2rem;
-            }
-            .nav-brand {
-                gap: 0.6rem;
-            }
-            .nav-avatar {
-                width: 36px;
-                height: 36px;
-            }
-            .nav-links::-webkit-scrollbar {
-                display: none;
-            }
-            .software-showcase {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-        }
+    .nav-brand {
+        width: 100%;
+        justify-content: space-between;
+        flex-wrap: nowrap;
+    }
 
+    .nav-logo {
+        font-size: 1.2rem;
+        white-space: nowrap;
+    }
+
+    .nav-avatar {
+        width: 36px;
+        height: 36px;
+        flex-shrink: 0;
+    }
+
+    .nav-links::-webkit-scrollbar {
+        display: none;
+    }
+    
+    .software-showcase {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+}
         .purchase-btn {
             border: none !important;
             outline: none !important;
@@ -612,6 +623,8 @@
             outline: none;
             box-shadow: 0 0 0 3px rgba(99,102,241,0.2) !important;
         }
+
+
     </style>
 
 <div class="modal-overlay" id="rechargeOverlay">
@@ -768,7 +781,7 @@
                 <p>专业工具助力您的链上探索</p>
             </div>
             <div class="software-showcase">
-                <img src="gongneng1.png" alt="代币分析" class="software-screenshot">
+                <img src="gongneng1.jpg" alt="代币分析" class="software-screenshot">
                 <div class="feature-description">
                     <h3>智能化链上分析</h3>
                     <p>一键分析合约中的所有的重要信息：</p>
@@ -789,11 +802,11 @@
                         <li>审核状态</li>
                     </ul>
                 </div>
-                <img src="gongneng2.png" alt="付款扫描" class="software-screenshot">
+                <img src="gongneng2.jpg" alt="付款扫描" class="software-screenshot">
             </div>
 
             <div class="software-showcase">
-                <img src="gongneng3.png" alt="热度扫描" class="software-screenshot">
+                <img src="gongneng3.jpg" alt="热度扫描" class="software-screenshot">
                 <div class="feature-description">
                     <h3>社区热度扫描</h3>
                     <p>一键扫描当前社区最热门代币：</p>
@@ -814,10 +827,10 @@
                         <li>最新交易状态</li>
                     </ul>
                 </div>
-                <img src="gongneng4.png" alt="内盘扫描" class="software-screenshot">
+                <img src="gongneng4.jpg" alt="内盘扫描" class="software-screenshot">
             </div>
             <div class="software-showcase">
-                <img src="gongneng5.png" alt="聪明钱榜" class="software-screenshot">
+                <img src="gongneng5.jpg" alt="聪明钱榜" class="software-screenshot">
                 <div class="feature-description">
                     <h3>聪明钱热度榜</h3>
                     <p>一键扫描当前聪明钱都在购买哪些代币：</p>
@@ -838,10 +851,10 @@
                         <li>记录监控信息</li>
                     </ul>
                 </div>
-                <img src="gongneng6.png" alt="模拟交易" class="software-screenshot">
+                <img src="gongneng6.jpg" alt="模拟交易" class="software-screenshot">
             </div>
             <div class="software-showcase">
-                <img src="gongneng7.png" alt="综合工具" class="software-screenshot">
+                <img src="gongneng7.jpg" alt="综合工具" class="software-screenshot">
                 <div class="feature-description">
                    <h3>链上综合工具</h3>
                     <p>一键直达Solana扫链快捷的方式：</p>
@@ -1049,3 +1062,5 @@
 </script>
 </body>
 </html>
+
+帮我修复HTML代码，我希望在手机端查看的时候，导航栏那些按钮可以变成三行两列的布局方式
