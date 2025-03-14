@@ -405,14 +405,13 @@
     }
 
     .nav-links a {
-        flex: 0 0 calc(50% - 0.4rem);
+        flex: 0 0 calc(50% - 0.4rem) !important; 
         margin: 0 !important;
         padding: 4px 0;
         font-size: 0.9rem;
         white-space: nowrap;
         text-align: center;
-        position: relative;
-        display: inline-block;
+        box-sizing: border-box; 
     }
 
     .nav-links a.active {
@@ -495,23 +494,20 @@
 
  @media (max-width: 480px) {
     .nav-links {
-        order: 3;
-        width: 100%;
-        margin: 0.8rem 0 0;
+        /* 修改为 */
         padding: 0.5rem 0;
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 0.8rem;
+        justify-content: space-between; /* 替换原来的center */
     }
 
     .nav-links a {
+        /* 修改为 */
+        flex: 0 0 calc(50% - 0.4rem) !important; /* 保持双列 */
+        margin: 0 0.2rem !important;
+        padding: 8px 0;
+        /* 删除以下冲突代码：
         flex: 0 0 auto;
-        margin: 0 0.8rem !important;
-        padding: 4px 0;
-        font-size: 0.9rem;
-        white-space: nowrap;
-        position: relative;
+        margin: 0 0.8rem !important; 
+        */
     }
 
     .nav-links a.active {
