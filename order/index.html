@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>支付结果 - 金狗侦探</title>
+    <style>
+        :root {
+            --primary: #6B7280;      /* 主色改为中性灰 */
+            --surface: #F3F4F6;       /* 表面色改为浅灰 */
+            --background: #E5E7EB;    /* 背景色改为中灰 */
+            --success: #4B5563;       /* 成功色改为深灰 */
+            --text-primary: #1F2937;  /* 主要文字颜色加深 */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', system-ui, sans-serif;
+        }
+
+        body {
+            background: var(--background);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+        }
+
+        .payment-card {
+            background: var(--surface);
+            border-radius: 24px;
+            box-shadow: 0 12px 32px rgba(107, 114, 128, 0.08); /* 调整阴影颜色 */
+            padding: 2.5rem;
+            width: 100%;
+            max-width: 480px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #D1D5DB;  /* 增加灰色边框 */
+        }
+
+        .brand-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .brand-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 1.5rem;
+            border: 3px solid var(--primary);  /* 边框颜色同步修改 */
+            box-shadow: 0 4px 16px rgba(107, 114, 128, 0.15); /* 阴影颜色调整 */
+        }
+
+        .title-group h1 {
+            font-size: 1.8rem;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.5px;
+        }
+
+        .transaction-details {
+            margin: 2rem 0;
+            background: #F9FAFB;
+            border-radius: 16px;
+            padding: 1.5rem;
+            border: 1px solid #E5E7EB;  /* 增加边框 */
+        }
+
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid #F3F4F6;  /* 分割线颜色调整 */
+        }
+
+        .detail-item:last-child {
+            border-bottom: none;
+        }
+
+        .detail-label {
+            color: #6B7280;  /* 标签文字颜色调整 */
+            font-size: 0.95rem;
+            flex: 0 0 100px;
+        }
+
+        .detail-value {
+            color: var(--text-primary);
+            font-weight: 500;
+            text-align: right;
+            flex: 1;
+        }
+
+        .button-group {
+            display: grid;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .action-btn {
+            padding: 14px;
+            border-radius: 12px;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .primary-btn {
+            background: linear-gradient(135deg, #6B7280, #4B5563); /* 按钮渐变改为灰色 */
+            color: white;
+        }
+
+        .secondary-btn {
+            background: rgba(107, 114, 128, 0.1);  /* 背景色调整 */
+            color: var(--text-primary);  /* 文字颜色同步 */
+            border: 1px solid #D1D5DB;  /* 增加边框 */
+        }
+
+        @media (max-width: 480px) {
+            .payment-card {
+                padding: 1.8rem;
+                border-radius: 20px;
+            }
+
+            .brand-avatar {
+                width: 72px;
+                height: 72px;
+            }
+
+            .title-group h1 {
+                font-size: 1.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="payment-card">
+        <div class="brand-header">
+            <img src="your-avatar.jpg" alt="金狗侦探" class="brand-avatar">
+            <div class="title-group">
+                <h1>支付结果确认</h1>
+            </div>
+        </div>
+
+        <div class="transaction-details">
+            <div class="detail-item">
+                <span class="detail-label">支付时间</span>
+                <span class="detail-value" id="currentTime">--</span>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">支付单号</span>
+                <span class="detail-value" id="xddOrder">--</span>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">用户账号</span>
+                <span class="detail-value" id="userId">--</span>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">支付金额</span>
+                <span class="detail-value" id="amount">--</span>
+            </div>
+        </div>
+
+        <div class="button-group">
+            <button class="action-btn primary-btn" onclick="location.href='https://whitetools.github.io/jingouzhentan/'">
+                返回工具中心
+            </button>
+            <button class="action-btn secondary-btn" onclick="savePayment()">
+                保存交易凭证
+            </button>
+        </div>
+    </div>
+
+    <!-- JavaScript部分保持不变 -->
+    <script>
+        // 订单号时间解析函数
+        function parseOrderTime(orderNo) {
+            try {
+                if (!orderNo || orderNo.length < 14 || !/^\d+$/.test(orderNo)) {
+                    return null;
+                }
+
+                const timeStr = orderNo.substring(0, 14);
+                const year = timeStr.substring(0, 4);
+                const month = timeStr.substring(4, 6);
+                const day = timeStr.substring(6, 8);
+                const hour = timeStr.substring(8, 10);
+                const minute = timeStr.substring(10, 12);
+                const second = timeStr.substring(12, 14);
+
+                return new Date(`${year}-${month}-${day}T${hour}:${minute}:${second}`);
+            } catch {
+                return null;
+            }
+        }
+
+        function formatDateTime(date) {
+            if (!(date instanceof Date) || isNaN(date)) return '--';
+            
+            return new Intl.DateTimeFormat('zh-CN', {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: false
+            }).format(date).replace(/\//g, '-');
+        }
+
+        function initPayment() {
+            const params = new URLSearchParams(location.search);
+            const orderNo = params.get('xddpay_order');
+
+            document.getElementById('xddOrder').textContent = orderNo || '--';
+
+            const orderTime = orderNo ? parseOrderTime(orderNo) : null;
+            document.getElementById('currentTime').textContent = 
+                orderTime ? formatDateTime(orderTime) : '--';
+
+            const subject = params.get('subject') ? 
+                decodeURIComponent(params.get('subject')) : '';
+            const userId = subject.match(/用户:(\d+)/)?.[1] || '--';
+            document.getElementById('userId').textContent = userId;
+
+            const amount = params.get('money');
+            document.getElementById('amount').textContent = 
+                amount ? `¥ ${parseFloat(amount).toFixed(2)}` : '--';
+        }
+
+        function savePayment() {
+            try {
+                const content = `【金狗侦探支付凭证】
+支付时间：${document.getElementById('currentTime').textContent}
+支付单号：${document.getElementById('xddOrder').textContent}
+用户账号：${document.getElementById('userId').textContent}
+支付金额：${document.getElementById('amount').textContent}`;
+
+                const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+                const url = URL.createObjectURL(blob);
+                
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `支付凭证_${document.getElementById('xddOrder').textContent}.txt`;
+                document.body.appendChild(a);
+                a.click();
+                
+                URL.revokeObjectURL(url);
+                document.body.removeChild(a);
+
+            } catch (e) {
+                alert('保存失败，请稍后重试');
+                console.error('保存错误:', e);
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', initPayment);
+
+        window.addEventListener('pageshow', function(event) {
+            if (event.persisted) {
+                initPayment();
+            }
+        });
+    </script>
+</body>
+</html>
