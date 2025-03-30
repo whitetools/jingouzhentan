@@ -780,45 +780,50 @@
                     <p>独立验证系统</p>
                     <button class="download-btn" style="margin-top: 1rem;">立即体验</button>
                 </div>
-                <div class="feature-card" style="text-align: center;">
-                    <h3>月费会员</h3>
-                    <div style="font-size: 2rem; color: var(--primary); margin: 1rem 0;">50U</div>
-                    <p>原100U限时优惠</p>
-                    <p>无限次链上扫描</p>
-                    <p>优先客服支持</p>
-                    <button class="purchase-btn" 
-                            style="margin-top: 1rem; 
-                                   background: linear-gradient(135deg, #FF6B6B, #FF8E53);
-                                   color: white;">
-                        立即购买
-                    </button>
-                </div>
-                <div class="feature-card" style="text-align: center;">
-                    <h3>季费会员</h3>
-                    <div style="font-size: 2rem; color: var(--primary); margin: 1rem 0;">￥100U</div>
-                    <p>原200U限时优惠</p>
-                    <p>无限次链上扫描</p>
-                    <p>优先客服支持</p>
-<button class="purchase-btn" 
-        style="margin-top: 1rem; 
-               background: linear-gradient(135deg, #FFB347, #FF9500);
-               color: white;">
-    立即购买
-</button>
-                </div>
-                <div class="feature-card" style="text-align: center;">
-                    <h3>年费会员</h3>
-                    <div style="font-size: 2rem; color: var(--primary); margin: 1rem 0;">300U</div>
-                    <p>原500U限时优惠</p>
-                    <p>新功能抢先体验</p>
-                    <p>VIP技术支持通道</p>
-                    <button class="purchase-btn" 
-                            style="margin-top: 1rem; 
-                                   background: linear-gradient(135deg, #4ECDC4, #45B7AF);
-                                   color: white;">
-                        立即购买
-                    </button>
-                </div>
+<div class="feature-card" style="text-align: center;">
+    <h3>月费会员</h3>
+    <div style="font-size: 2rem; color: var(--primary); margin: 1rem 0;">50U</div>
+    <p>原100U限时优惠</p>
+    <p>无限次链上扫描</p>
+    <p>优先客服支持</p>
+    <button class="purchase-btn" 
+            style="margin-top: 1rem; 
+                   background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+                   color: white;"
+            onclick="window.open('https://www.whitetools.top/buy/2', '_blank')">
+        立即购买
+    </button>
+</div>
+
+<div class="feature-card" style="text-align: center;">
+    <h3>季费会员</h3>
+    <div style="font-size: 2rem; color: var(--primary); margin: 1rem 0;">￥100U</div>
+    <p>原200U限时优惠</p>
+    <p>无限次链上扫描</p>
+    <p>优先客服支持</p>
+    <button class="purchase-btn" 
+            style="margin-top: 1rem; 
+                   background: linear-gradient(135deg, #FFB347, #FF9500);
+                   color: white;"
+            onclick="window.open('https://www.whitetools.top/buy/3', '_blank')">
+        立即购买
+    </button>
+</div>
+
+<div class="feature-card" style="text-align: center;">
+    <h3>年费会员</h3>
+    <div style="font-size: 2rem; color: var(--primary); margin: 1rem 0;">300U</div>
+    <p>原500U限时优惠</p>
+    <p>新功能抢先体验</p>
+    <p>VIP技术支持通道</p>
+    <button class="purchase-btn" 
+            style="margin-top: 1rem; 
+                   background: linear-gradient(135deg, #4ECDC4, #45B7AF);
+                   color: white;"
+            onclick="window.open('https://www.whitetools.top/buy/4', '_blank')">
+        立即购买
+    </button>
+</div>
             </div>
         </section>
 
@@ -1070,14 +1075,7 @@
             });
         });
 
-        // 购买按钮绑定
-        document.querySelectorAll('.purchase-btn').forEach(btn => {
-            btn.addEventListener('click', function(e) {
-                e.preventDefault();
-                document.getElementById('rechargeOverlay').style.display = 'flex';
-                document.body.style.overflow = 'hidden';
-            });
-        });
+
 
         // 导航交互
         document.querySelectorAll('.nav-links a').forEach(link => {
